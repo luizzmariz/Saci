@@ -11,6 +11,9 @@ public class Pathfinding : MonoBehaviour {
 
 	PathRequestManager requestManager;
 	Grid3D grid;
+
+	// Vector3[] debugWaypoints;
+	// public bool debugBool;
 	// Tilemap collisionTileMap;
 	// Tilemap areaTileMap;
 
@@ -33,7 +36,7 @@ public class Pathfinding : MonoBehaviour {
 	
 	IEnumerator FindPath(Vector3 startPos, Vector3 targetPos, GameObject enemy) 
 	{
-
+		// debugBool = false;
 		Vector3[] waypoints = new Vector3[0];
 		bool pathSuccess = false;
 		
@@ -166,8 +169,23 @@ public class Pathfinding : MonoBehaviour {
 				waypoints = RetracePath(startNode,targetNode);
 			}
 		}
+		// debugWaypoints = new Vector3[0];
+		// debugWaypoints = waypoints;
+		// debugBool = true;
 		requestManager.FinishedProcessingPath(waypoints,pathSuccess);
 	}
+
+	// void OnDrawGizmosSelected()
+    // {
+	// 	if(debugBool)
+	// 	{
+	// 		foreach(Vector3 tile in debugWaypoints)
+	// 		{
+	// 			Gizmos.color = new Color(0,1,1,0.3f);
+	// 			Gizmos.DrawCube(tile, Vector3.one * 0.25f);
+	// 		}
+	// 	}	
+    // }
 
 	// public bool CheckIfContain(Node[] array, Vector2Int position)
 	// {
@@ -244,6 +262,18 @@ public class Pathfinding : MonoBehaviour {
 		Vector3[] waypoints = SimplifyPath(path);
 		Array.Reverse(waypoints);
 		return waypoints;
+
+		// List<Vector3> waypoints = new List<Vector3>();
+
+		// foreach(Node node in path)
+		// {
+		// 	waypoints.Add(node.worldPosition);
+		// }
+
+		// Vector3[] testWaypoints = waypoints.ToArray();
+
+		// Array.Reverse(testWaypoints);
+		// return testWaypoints;
 	}
 	
 	Vector3[] SimplifyPath(List<Node> path) {
@@ -253,7 +283,7 @@ public class Pathfinding : MonoBehaviour {
 		for (int i = 1; i < path.Count; i ++) {
 			Vector2 directionNew = new Vector2(path[i-1].gridX - path[i].gridX,path[i-1].gridY - path[i].gridY);
 			if (directionNew != directionOld) {
-				waypoints.Add(path[i].worldPosition);
+				waypoints.Add(path[i-1].worldPosition);
 			}
 			directionOld = directionNew;
 		}

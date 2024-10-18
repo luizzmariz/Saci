@@ -17,6 +17,7 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Enemies")]
     public int enemiesAlive;
+    public List<BaseEnemyStateMachine> enemies;
 
     [Header("Spawn")]
     public Grid3D grid;
@@ -50,16 +51,15 @@ public class WaveSpawner : MonoBehaviour
     {
         Wave currentWave = waves[currentWaveIndex];
 
-        Instantiate(enemyToSpawn, 
-                    GetSpawnPosition(spawnLocation.position, 0), 
-                    Quaternion.identity, 
-                    currentWave.transform);
+        GameObject enemySpawned = Instantiate(enemyToSpawn, 
+                    spawnLocation.position, 
+                    Quaternion.identity);
     }
 
     public IEnumerator SpawnWave()
     {
         waveSpawnEnded = false;
-        enemiesAlive = 0;
+        //enemiesAlive = 0;
         Wave currentWave = waves[currentWaveIndex];
 
         if(currentWave.subwaves == null || currentWave.subwaves.Count == 0)
@@ -84,8 +84,8 @@ public class WaveSpawner : MonoBehaviour
                     //
                     enemySpawned.name = "W" + i + " (" + o + ") " + currentWave.subwaves[currentWave.currentSubWaveIndex].enemies[o].name;
 
-                    enemySpawned.GetComponent<BaseEnemyStateMachine>().spawnedInWave = true;
-                    enemiesAlive++;
+                    //enemySpawned.GetComponent<BaseEnemyStateMachine>().spawnedInWave = true;
+                    //enemiesAlive++;
                 }
 
                 currentWave.currentSubWaveIndex++;
@@ -98,6 +98,12 @@ public class WaveSpawner : MonoBehaviour
 
             waveSpawnEnded = true;
         }
+    }
+
+    public void EnemySpawned(BaseEnemyStateMachine enemyStateMachine)
+    {
+        enemies.Add(enemyStateMachine);
+        enemiesAlive++;
     }
 
     Vector3 GetSpawnPosition(Vector3 spawnPosition, float spawnRange)
@@ -117,8 +123,9 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    public void EnemyDied()
+    public void EnemyDied(BaseEnemyStateMachine enemyStateMachine)
     {
+        enemies.Remove(enemyStateMachine);
         enemiesAlive--;
         CheckEnemiesLeft();
     }

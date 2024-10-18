@@ -18,7 +18,6 @@ public class Enemy4DigState : BaseState
 
     // List<Collider> colliders;
     Collider[] colliders;
-    ContactFilter2D contactFilter2D;
     
 
     public Enemy4DigState(Enemy4StateMachine stateMachine) : base("Run", stateMachine) 
@@ -91,12 +90,17 @@ public class Enemy4DigState : BaseState
 
     IEnumerator StartDig()
     {
+        Color previousColor =  enemyStateMachine.bodySpriteRenderer.color;
+        //enemyStateMachine.animator;
+        yield return new WaitForSeconds(enemyStateMachine.diggingTime);
+
+        enemyStateMachine.bodySpriteRenderer.color = new Color(previousColor.r, previousColor.g, previousColor.b, 0.3f);
+        enemyStateMachine.handsSpriteRenderer.color = new Color(previousColor.r, previousColor.g, previousColor.b, 0.3f);
+
         hasDigged = true;
         digWentWrong = false;
         enemyStateMachine.enemyDamageable.damageable = false;
-        //enemyStateMachine.animator;
-
-        yield return new WaitForSeconds(enemyStateMachine.diggingTime);
+        
 
         dig = enemyStateMachine.StartCoroutine(DigTimer());
     }
@@ -111,7 +115,12 @@ public class Enemy4DigState : BaseState
 
     IEnumerator DigOut()
     {
+        Color previousColor =  enemyStateMachine.bodySpriteRenderer.color;
+
         yield return new WaitForSeconds(enemyStateMachine.diggingTime);
+        
+        enemyStateMachine.bodySpriteRenderer.color = new Color(previousColor.r, previousColor.g, previousColor.b, 1f);
+        enemyStateMachine.handsSpriteRenderer.color = new Color(previousColor.r, previousColor.g, previousColor.b, 1f);
 
         isDigging = false;
         enemyStateMachine.enemyDamageable.damageable = true;

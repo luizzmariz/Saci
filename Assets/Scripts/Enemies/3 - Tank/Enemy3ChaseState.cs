@@ -124,6 +124,7 @@ public class Enemy3ChaseState : BaseState
     public void FollowPath() 
     {
 		Vector3 currentWaypoint = path[targetIndex];
+        currentWaypoint.y = 0;
         
 		if (Vector3.Distance(holderPosition, currentWaypoint) <= 0.1) 
         {

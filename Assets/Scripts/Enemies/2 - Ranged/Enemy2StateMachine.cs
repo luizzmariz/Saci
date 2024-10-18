@@ -37,6 +37,7 @@ public class Enemy2StateMachine : BaseEnemyStateMachine
         deadState = new Enemy2DeadState(this);
 
         canFlee = true;
+        waveSpawner.EnemySpawned(this);
     }
 
     protected override BaseState GetInitialState() {

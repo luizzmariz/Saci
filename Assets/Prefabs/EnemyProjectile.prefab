@@ -99,7 +99,7 @@ MonoBehaviour:
   damageAmount: 8
   isAttacking: 0
   animator: {fileID: 0}
-  fireForce: 8
+  fireForce: 6.8
   projectileDuration: 0.75
 --- !u!1 &5571369892605832099
 GameObject:

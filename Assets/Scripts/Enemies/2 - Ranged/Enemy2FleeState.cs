@@ -96,6 +96,7 @@ public class Enemy2FleeState : BaseState
         //enemyStateMachine.animator.SetBool("isMoving", true);
         // Debug.Log("tamanho do caminho: " + path.Count());
 		Vector3 currentWaypoint = path[targetIndex];
+        currentWaypoint.y = 0;
         
 		if(Vector3.Distance(holderPosition, currentWaypoint) <= 0.1) 
         {

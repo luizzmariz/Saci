@@ -41,18 +41,55 @@ public class Grid3D : MonoBehaviour {
 	public List<Node> GetNeighbours(Node node) {
 		List<Node> neighbours = new List<Node>();
 
-		for (int x = -1; x <= 1; x++) {
-			for (int y = -1; y <= 1; y++) {
-				if (x == 0 && y == 0)
-					continue;
+		// for (int x = -1; x <= 1; x++) {
+		// 	for (int y = -1; y <= 1; y++) {
+		// 		if (x == 0 && y == 0)
+		// 			continue;
 
+		// 		int checkX = node.gridX + x;
+		// 		int checkY = node.gridY + y;
+
+		// 		if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY) {
+		// 			neighbours.Add(grid[checkX,checkY]);
+		// 		}
+		// 	}
+		// }	
+
+		for(int x = -1; x <= 1; x += 2)
+		{
+			int checkX = node.gridX + x;
+
+			if(checkX >= 0 && checkX < gridSizeX && node.gridY >= 0 && node.gridY < gridSizeY) 
+			{
+				neighbours.Add(grid[checkX,node.gridY]);
+			}	
+		}
+
+		for(int y = -1; y <= 1; y += 2)
+		{
+			int checkY = node.gridY + y;
+
+			if(node.gridX >= 0 && node.gridX < gridSizeX && checkY >= 0 && checkY < gridSizeY) 
+			{
+				neighbours.Add(grid[node.gridX,checkY]);
+			}	
+		}
+
+		for(int y = -1; y <= 1; y += 2)
+		{
+			for(int x = -1; x <= 1; x += 2)
+			{
 				int checkX = node.gridX + x;
 				int checkY = node.gridY + y;
 
-				if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY) {
-					neighbours.Add(grid[checkX,checkY]);
-				}
-			}
+				if(checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY) 
+				{
+					if(grid[node.gridX,checkY].walkable && grid[checkX,node.gridY].walkable)
+					{
+						neighbours.Add(grid[checkX,checkY]);
+					}
+				}	
+			}	
 		}
 
 		return neighbours;
@@ -146,7 +183,7 @@ public class Grid3D : MonoBehaviour {
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 		if (grid != null && displayGridGizmos) {
 			foreach (Node n in grid) {
-				Gizmos.color = (n.walkable)?new Color(1,1,1,0.1f):new Color(1,0,0,0.1f);
+				Gizmos.color = (n.walkable)?new Color(1,1,1,0.05f):new Color(1,0,0,0.05f);
 				if(n.gridX == 0 && n.gridY == 0)
 				{
 					Gizmos.color = Color.green;

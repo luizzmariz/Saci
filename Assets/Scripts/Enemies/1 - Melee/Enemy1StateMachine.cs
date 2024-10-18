@@ -26,6 +26,7 @@ public class Enemy1StateMachine : BaseEnemyStateMachine
 
         canAttack = true;
         canMove = true;
+        waveSpawner.EnemySpawned(this);
     }
 
     protected override BaseState GetInitialState() {
@@ -60,6 +61,7 @@ public class Enemy1StateMachine : BaseEnemyStateMachine
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, rangeOfView);
+        Gizmos.DrawWireSphere(transform.position, rangeOfView * 0.8f);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, rangeOfAttack);

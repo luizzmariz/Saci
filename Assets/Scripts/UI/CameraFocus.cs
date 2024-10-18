@@ -21,10 +21,13 @@ public class CameraFocus : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(target.position));
         RaycastHit raycastHit;
 
+        Debug.DrawRay(ray.origin, ray.direction * 4, Color.blue);
+
         Physics.Raycast(ray, out raycastHit);
 
         if(raycastHit.collider != null && raycastHit.collider.gameObject.layer == LayerMask.NameToLayer("Collision") && raycastHit.collider.transform.GetComponentInChildren<SpriteRenderer>())
         {
+            //Debug.Log(raycastHit.collider.name);
             if(affectedObject != null && raycastHit.collider != affectedObject)
             {
                 StartCoroutine(ChangeOpacity(affectedObject, true));

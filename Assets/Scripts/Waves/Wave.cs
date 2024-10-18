@@ -13,7 +13,7 @@ public class Wave : MonoBehaviour
     
     [Header("Spawnpoint")]
     public Vector3 spawnPosition;
-    public float spawnRange;
+    [HideInInspector] public float spawnRange;
 
     private void Awake() {
         spawnPosition = transform.position;

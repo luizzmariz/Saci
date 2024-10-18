@@ -196,12 +196,11 @@ MonoBehaviour:
   enemyHands: {fileID: 0}
   bodySpriteRenderer: {fileID: 0}
   handsSpriteRenderer: {fileID: 0}
-  spawnedInWave: 0
   canMove: 0
   canAttack: 0
   isAttacking: 0
-  rangeOfView: 15
-  rangeOfAttack: 1.2
+  rangeOfView: 25
+  rangeOfAttack: 1.5
   movementSpeed: 1
   knockbackDuration: 0.1
   knockbackPower: 0
@@ -398,7 +397,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1863a7c1fa7dc8341b57e6f9f69ab587, type: 3}
   m_Color: {r: 0.4745098, g: 0, b: 1, a: 1}
   m_FlipX: 0

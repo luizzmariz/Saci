@@ -54,10 +54,7 @@ public class Enemy1ChaseState : BaseState
         }
     }
 
-    //This function runs at LateUpdate()
     public override void UpdatePhysics() {
-        //base.UpdatePhysics();
-
         holderPosition = enemyStateMachine.transform.position;
         playerPosition = enemyStateMachine.playerGameObject.transform.position;
 
@@ -71,7 +68,6 @@ public class Enemy1ChaseState : BaseState
             if(!hasAskedPath && !followingPath)
             {
                 hasAskedPath = true;
-                //Debug.Log("Pedinddo caminho, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
                 lastPlayerPosition = playerPosition;
                 enemyStateMachine.pathRequestManager.RequestPath(holderPosition, playerPosition, OnPathFound, enemyStateMachine.gameObject); 
             }
@@ -88,24 +84,24 @@ public class Enemy1ChaseState : BaseState
                 {
                     FollowPath();
                 }
-                //Debug.Log("Seguindo caminho, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
             }
         }
         else
         {
-            enemyStateMachine.rigidBody.velocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
+            if(followingPath)
+            {
+                FollowPath();
+            }
+            else
+            {
+                enemyStateMachine.rigidBody.velocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
+            }
         }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
 		if (pathSuccessful && enemyStateMachine.currentState == this)
         {
-            // Debug.Log("Caminho chegou, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
-            // for(int i = 0; i < newPath.Length; i++)
-            // {
-            //     //newPath[i].y = 5;
-            //     //Debug.Log("wayPoint " + i + " is: " + newPath[i]);
-            // }
             targetIndex = 0;
             hasAskedPath = false;
             followingPath = true;
@@ -119,45 +115,30 @@ public class Enemy1ChaseState : BaseState
 
     public void FollowPath() 
     {
-        //enemyStateMachine.animator.SetBool("isMoving", true);
-        // Debug.Log("tamanho do caminho: " + path.Count());
 		Vector3 currentWaypoint = path[targetIndex];
+        currentWaypoint.y = 0;
         
-		if (Vector3.Distance(holderPosition, currentWaypoint) <= 0.1) 
+        //Debug.Log("the Distance between holderPosition: " + holderPosition + " and currentWaypoint: " + currentWaypoint + " is " + Vector3.Distance(holderPosition, currentWaypoint));
+
+		if(Vector3.Distance(holderPosition, currentWaypoint) <= 0.1) 
         {
-            //Debug.Log("AM I  BECOMING FUICKIN CRAZY??? tagetIndex = " + targetIndex);
 			targetIndex ++;
 			if(targetIndex >= path.Count()) 
             {
-                // Debug.Log("HEHEHEHE");
                 followingPath = false;
                 return;
 			}
-			// currentWaypoint = path[targetIndex];
 		}
         
         enemyStateMachine.characterOrientation.ChangeOrientation(currentWaypoint);
+        if(enemyStateMachine.ShowChasePath)
+        {
+            Debug.DrawRay(stateMachine.transform.position, currentWaypoint - stateMachine.transform.position, Color.grey);
+        }
 
         Vector3 movementDirection = currentWaypoint - holderPosition;
         enemyStateMachine.rigidBody.velocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
 	}
-
-	// public void OnDrawGizmos() 
-    // {
-	// 	if (path != null) {
-	// 		for (int i = targetIndex; i < path.Length; i ++) {
-	// 			Gizmos.color = Color.black;
-	// 			Gizmos.DrawCube(path[i], Vector3.one);
-
-	// 			if (i == targetIndex) {
-	// 				Gizmos.DrawLine(holderPosition, path[i]);
-	// 			}
-	// 			else {
-	// 				Gizmos.DrawLine(path[i-1],path[i]);
-	// 			}
-	// 		}
-	// 	}
-	// }
 
     public override void Exit() 
     {
@@ -165,6 +146,4 @@ public class Enemy1ChaseState : BaseState
         followingPath = false;
         path = null;
     }
-
-    
 }

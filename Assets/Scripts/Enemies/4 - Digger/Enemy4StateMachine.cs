@@ -40,6 +40,7 @@ public class Enemy4StateMachine : BaseEnemyStateMachine
         deadState = new Enemy4DeadState(this);
 
         canDig = true;
+        waveSpawner.EnemySpawned(this);
     }
 
     protected override BaseState GetInitialState() {

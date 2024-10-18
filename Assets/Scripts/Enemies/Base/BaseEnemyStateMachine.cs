@@ -18,9 +18,6 @@ public class BaseEnemyStateMachine : StateMachine
     [HideInInspector] public SpriteRenderer bodySpriteRenderer;
     [HideInInspector] public SpriteRenderer handsSpriteRenderer;
 
-    [Header("SpawnedInWave")]
-    [HideInInspector] public bool spawnedInWave;
-
     [Header("Bool variables")]
     public bool canMove;
     public bool canAttack;

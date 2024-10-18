@@ -11,9 +11,9 @@ public class Boss1IdleState : BaseState
     }
 
     public override void Enter() {
-        enemyStateMachine.canMove = true;
+        //enemyStateMachine.canMove = true;
         // enemyStateMachine.canAttack = true;
-        enemyStateMachine.enemyDamageable.damageable = true;
+        //enemyStateMachine.enemyDamageable.damageable = true;
     }
 
     public override void UpdateLogic() {
@@ -22,18 +22,36 @@ public class Boss1IdleState : BaseState
             Vector3 holderPosition = enemyStateMachine.transform.position;
             Vector3 playerPosition = enemyStateMachine.playerGameObject.transform.position;
             
-            if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
+            // if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
+            // {
+            //     if(enemyStateMachine.canAttack)
+            //     {
+            //         stateMachine.ChangeState(enemyStateMachine.attackState);
+            //     }
+            //     enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+            // }
+            // else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
+            // {
+            //     stateMachine.ChangeState(enemyStateMachine.chaseState);
+            // }
+
+            ChooseNextAttack(holderPosition, playerPosition);
+        }
+    }
+
+    public void ChooseNextAttack(Vector3 holderPosition, Vector3 playerPosition)
+    {
+        if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
+        {
+            if(enemyStateMachine.canAttack)
             {
-                if(enemyStateMachine.canAttack)
-                {
-                    stateMachine.ChangeState(enemyStateMachine.attackState);
-                }
-                enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+                stateMachine.ChangeState(enemyStateMachine.attackState);
             }
-            else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
-            {
-                stateMachine.ChangeState(enemyStateMachine.chaseState);
-            }
+            enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+        }
+        else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
+        {
+            stateMachine.ChangeState(enemyStateMachine.chaseState);
         }
     }
 

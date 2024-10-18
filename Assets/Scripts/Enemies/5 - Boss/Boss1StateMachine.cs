@@ -26,6 +26,7 @@ public class Boss1StateMachine : BaseEnemyStateMachine
 
         canAttack = true;
         canMove = true;
+        waveSpawner.EnemySpawned(this);
     }
 
     protected override BaseState GetInitialState() {
@@ -51,7 +52,7 @@ public class Boss1StateMachine : BaseEnemyStateMachine
     // private void OnGUI()
     // {
     //     GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
-    //     string content = currentState != null ? currentState.name : "(no current state)";
+    //     string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
     //     GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
     //     GUILayout.EndArea();
     // }

@@ -44,6 +44,7 @@ public class Enemy3StateMachine : BaseEnemyStateMachine
         //runCollider.enabled = false;
         canRun = true;
         runIsLoading = false;
+        waveSpawner.EnemySpawned(this);
     }
 
     protected override BaseState GetInitialState() {
