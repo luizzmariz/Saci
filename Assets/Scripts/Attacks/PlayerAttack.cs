@@ -18,7 +18,6 @@ public class PlayerAttack : Attack
                 {
                     if(isProjectile)
                     {
-                        Debug.Log("huh");
                         Destroy(gameObject);
                     }
                 }

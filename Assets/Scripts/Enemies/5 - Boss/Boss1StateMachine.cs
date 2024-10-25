@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss1StateMachine : BaseEnemyStateMachine
+public class Boss1StateMachine : BossStateMachine
 {
+    [Header("States")]
+    public PathRequestManager pathRequestManager;
+
     [Header("States")]
     [HideInInspector] public Boss1IdleState idleState;
     [HideInInspector] public Boss1ChaseState chaseState;
@@ -18,15 +21,14 @@ public class Boss1StateMachine : BaseEnemyStateMachine
     protected override void Awake() {
         base.Awake();
 
+        pathRequestManager = GameObject.Find("Boss1Arena").GetComponent<PathRequestManager>();
+        //Debug.Log(pathRequestManager);
+
         idleState = new Boss1IdleState(this);
         chaseState = new Boss1ChaseState(this);
         attackState = new Boss1AttackState(this);
         damageState = new Boss1DamageState(this);
         deadState = new Boss1DeadState(this);
-
-        canAttack = true;
-        canMove = true;
-        waveSpawner.EnemySpawned(this);
     }
 
     protected override BaseState GetInitialState() {
@@ -49,13 +51,13 @@ public class Boss1StateMachine : BaseEnemyStateMachine
         }
     }
 
-    // private void OnGUI()
-    // {
-    //     GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
-    //     string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
-    //     GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
-    //     GUILayout.EndArea();
-    // }
+    private void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
+        string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
+        GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
+        GUILayout.EndArea();
+    }
 
     void OnDrawGizmosSelected()
     {
@@ -69,7 +71,7 @@ public class Boss1StateMachine : BaseEnemyStateMachine
 		{
 			foreach(Vector3 tile in chaseState.path)
 			{
-				Gizmos.color = new Color(0,0,1,0.3f);
+				Gizmos.color = new Color(0,0,1,1f);
 				Gizmos.DrawCube(tile, Vector3.one * (nodeRadius-.1f));
 			}
 		}

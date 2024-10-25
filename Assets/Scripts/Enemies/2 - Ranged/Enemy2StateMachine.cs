@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Enemy2StateMachine : BaseEnemyStateMachine
+public class Enemy2StateMachine : WaveEnemyStateMachine
 {
     [Header("States")]
     [HideInInspector] public Enemy2IdleState idleState;

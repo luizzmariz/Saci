@@ -17,7 +17,10 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Enemies")]
     public int enemiesAlive;
-    public List<BaseEnemyStateMachine> enemies;
+    public List<WaveEnemyStateMachine> enemies;
+
+    [Header("Boss")]
+    public BossFightManager bossFightManager;
 
     [Header("Spawn")]
     public Grid3D grid;
@@ -100,7 +103,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    public void EnemySpawned(BaseEnemyStateMachine enemyStateMachine)
+    public void EnemySpawned(WaveEnemyStateMachine enemyStateMachine)
     {
         enemies.Add(enemyStateMachine);
         enemiesAlive++;
@@ -123,7 +126,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    public void EnemyDied(BaseEnemyStateMachine enemyStateMachine)
+    public void EnemyDied(WaveEnemyStateMachine enemyStateMachine)
     {
         enemies.Remove(enemyStateMachine);
         enemiesAlive--;
@@ -132,15 +135,21 @@ public class WaveSpawner : MonoBehaviour
 
     public void CheckEnemiesLeft()
     {
+        // bossFightManager.UnlockNextBossFight();
         if(enemiesAlive <= 0 && waveSpawnEnded)
         {
-            currentWaveIndex++;
-            if(currentWaveIndex == waves.Count)
+            // if(currentWaveIndex == waves.Count)
+            // {
+            //     StartCoroutine(GameManager.instance.EndGame(true));
+            // }
+            if(waves[currentWaveIndex].bossAfterWave)
             {
-                StartCoroutine(GameManager.instance.EndGame(true));
+                currentWaveIndex++;
+                bossFightManager.UnlockNextBossFight();
             }
             else
             {
+                currentWaveIndex++;
                 StartCoroutine(WaveClear());
             }
         }

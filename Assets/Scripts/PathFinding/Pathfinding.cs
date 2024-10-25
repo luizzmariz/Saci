@@ -41,8 +41,16 @@ public class Pathfinding : MonoBehaviour {
 		bool pathSuccess = false;
 		
 		Node startNode = grid.NodeFromWorldPoint(startPos);
+		// if(this.gameObject.name == "Boss1Arena")
+		// {
+		// 	Debug.Log("startNode.worldPosition: " + startNode.worldPosition + " - real one is: " + startPos + ". startNode.x: " + startNode.gridX + ", startNode.y: " + startNode.gridY);
+		// }
 		Node targetNode = grid.NodeFromWorldPoint(targetPos);
-
+		// if(this.gameObject.name == "Boss1Arena")
+		// {
+		// 	Debug.Log("targetNode.worldPosition: " + targetNode.worldPosition + " - real one is: " + targetPos + ". targetNode.x: " + targetNode.gridX + ", targetNode.y: " + targetNode.gridY);
+		// }
+		
 		Node helpStartNode = null;
 		Node helpTargetNode = null;
 		
@@ -181,7 +189,7 @@ public class Pathfinding : MonoBehaviour {
 	// 	{
 	// 		foreach(Vector3 tile in debugWaypoints)
 	// 		{
-	// 			Gizmos.color = new Color(0,1,1,0.3f);
+	// 			Gizmos.color = new Color(0,1,1,1f);
 	// 			Gizmos.DrawCube(tile, Vector3.one * 0.25f);
 	// 		}
 	// 	}	
@@ -284,6 +292,10 @@ public class Pathfinding : MonoBehaviour {
 			Vector2 directionNew = new Vector2(path[i-1].gridX - path[i].gridX,path[i-1].gridY - path[i].gridY);
 			if (directionNew != directionOld) {
 				waypoints.Add(path[i-1].worldPosition);
+				// if(this.gameObject.name == "Boss1Arena")
+				// {
+				// 	Debug.Log("final path: " + path[i-1].worldPosition + ". x: " + path[i-1].gridX + ", y: " + path[i-1].gridY);
+				// }
 			}
 			directionOld = directionNew;
 		}

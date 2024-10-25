@@ -68,8 +68,10 @@ public class Boss1ChaseState : BaseState
 
         if(Vector3.Distance(holderPosition, playerPosition) < enemyStateMachine.rangeOfView * 0.8f)
         {
+            //Debug.Log("1 = ta vindo pra ca??");
             if(!hasAskedPath && !followingPath)
             {
+                //Debug.Log("2 - entra aqui");
                 hasAskedPath = true;
                 //Debug.Log("Pedinddo caminho, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
                 lastPlayerPosition = playerPosition;
@@ -77,8 +79,10 @@ public class Boss1ChaseState : BaseState
             }
             else if(followingPath)
             {
+                //Debug.Log("3 - ou sera q entra aqui?");
                 if(Vector3.Distance(playerPosition, lastPlayerPosition) > 1.25f)
                 {
+                    //Debug.Log("4 - ja que entrou aqui, vem pra ca?");
                     followingPath = false;
                     hasAskedPath = true;
                     lastPlayerPosition = playerPosition;
@@ -86,6 +90,7 @@ public class Boss1ChaseState : BaseState
                 }
                 else
                 {
+                    //Debug.Log("5 - ou ta vindo pra ca?");
                     FollowPath();
                 }
                 //Debug.Log("Seguindo caminho, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
@@ -93,14 +98,16 @@ public class Boss1ChaseState : BaseState
         }
         else
         {
+            //Debug.Log("6 - ta vindo p ca né?");
             enemyStateMachine.rigidBody.velocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
+            Debug.DrawRay(stateMachine.transform.position, (playerPosition - holderPosition).normalized, Color.grey);
         }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
 		if (pathSuccessful && enemyStateMachine.currentState == this)
         {
-            // Debug.Log("Caminho chegou, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
+            //Debug.Log("Caminho chegou, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
             // for(int i = 0; i < newPath.Length; i++)
             // {
             //     //newPath[i].y = 5;
@@ -138,27 +145,14 @@ public class Boss1ChaseState : BaseState
 		}
         
         enemyStateMachine.characterOrientation.ChangeOrientation(currentWaypoint);
+        if(enemyStateMachine.ShowChasePath)
+        {
+            Debug.DrawRay(stateMachine.transform.position, currentWaypoint - stateMachine.transform.position, Color.green);
+        }
 
         Vector3 movementDirection = currentWaypoint - holderPosition;
         enemyStateMachine.rigidBody.velocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
 	}
-
-	// public void OnDrawGizmos() 
-    // {
-	// 	if (path != null) {
-	// 		for (int i = targetIndex; i < path.Length; i ++) {
-	// 			Gizmos.color = Color.black;
-	// 			Gizmos.DrawCube(path[i], Vector3.one);
-
-	// 			if (i == targetIndex) {
-	// 				Gizmos.DrawLine(holderPosition, path[i]);
-	// 			}
-	// 			else {
-	// 				Gizmos.DrawLine(path[i-1],path[i]);
-	// 			}
-	// 		}
-	// 	}
-	// }
 
     public override void Exit() 
     {
@@ -166,6 +160,4 @@ public class Boss1ChaseState : BaseState
         followingPath = false;
         path = null;
     }
-
-    
 }

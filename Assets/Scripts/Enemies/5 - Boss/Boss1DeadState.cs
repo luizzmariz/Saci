@@ -13,9 +13,9 @@ public class Boss1DeadState : BaseState
 
     public override void Enter() 
     {
-        if(enemyStateMachine.waveSpawner != null)
+        if(enemyStateMachine.bossFightManager != null)
         {
-            enemyStateMachine.waveSpawner.EnemyDied(enemyStateMachine);
+            enemyStateMachine.bossFightManager.BossDefeated();
         }
         
         Object.Destroy(enemyStateMachine.gameObject);

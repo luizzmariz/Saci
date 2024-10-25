@@ -14,28 +14,32 @@ public class Boss1IdleState : BaseState
         //enemyStateMachine.canMove = true;
         // enemyStateMachine.canAttack = true;
         //enemyStateMachine.enemyDamageable.damageable = true;
+        //Debug.Log("teste");
     }
 
     public override void UpdateLogic() {
-        if(!(enemyStateMachine.playerGameObject.GetComponent<PlayerStateMachine>().currentState == enemyStateMachine.playerGameObject.GetComponent<PlayerStateMachine>().deadState))
+        if(enemyStateMachine.battleStarted)
         {
-            Vector3 holderPosition = enemyStateMachine.transform.position;
-            Vector3 playerPosition = enemyStateMachine.playerGameObject.transform.position;
-            
-            // if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
-            // {
-            //     if(enemyStateMachine.canAttack)
-            //     {
-            //         stateMachine.ChangeState(enemyStateMachine.attackState);
-            //     }
-            //     enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
-            // }
-            // else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
-            // {
-            //     stateMachine.ChangeState(enemyStateMachine.chaseState);
-            // }
+            if(!(enemyStateMachine.playerGameObject.GetComponent<PlayerStateMachine>().currentState == enemyStateMachine.playerGameObject.GetComponent<PlayerStateMachine>().deadState))
+            {
+                Vector3 holderPosition = enemyStateMachine.transform.position;
+                Vector3 playerPosition = enemyStateMachine.playerGameObject.transform.position;
+                
+                // if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
+                // {
+                //     if(enemyStateMachine.canAttack)
+                //     {
+                //         stateMachine.ChangeState(enemyStateMachine.attackState);
+                //     }
+                //     enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+                // }
+                // else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
+                // {
+                //     stateMachine.ChangeState(enemyStateMachine.chaseState);
+                // }
 
-            ChooseNextAttack(holderPosition, playerPosition);
+                ChooseNextAttack(holderPosition, playerPosition);
+            }
         }
     }
 
@@ -51,6 +55,7 @@ public class Boss1IdleState : BaseState
         }
         else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
         {
+            //Debug.Log(Vector3.Distance(holderPosition, playerPosition) + " - " + enemyStateMachine.rangeOfView);
             stateMachine.ChangeState(enemyStateMachine.chaseState);
         }
     }

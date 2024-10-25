@@ -33,6 +33,15 @@ public class Grid3D : MonoBehaviour {
 			for (int y = 0; y < gridSizeY; y ++) {
 				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
 				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
+				// if(this.gameObject.name == "Boss1Arena")
+				// {
+				// 	if(x == 0 && (y == 4 || y == 20))
+				// 	{
+				// 		Debug.Log("worldPoint: " + worldPoint + ". worldBottomLeft: " + worldBottomLeft);
+				// 		Debug.Log("Vector3.right * (x * nodeDiameter + nodeRadius): " + Vector3.right + " * (" + x + " * " + nodeDiameter + " + " + nodeRadius + ")");
+				// 		Debug.Log("Vector3.forward * (y * nodeDiameter + nodeRadius): " + Vector3.forward + " * (" + y + " * " + nodeDiameter + " + " + nodeRadius + ")");
+				// 	}
+				// }
 				grid[x,y] = new Node(walkable,worldPoint, x,y);
 			}
 		}
@@ -136,17 +145,45 @@ public class Grid3D : MonoBehaviour {
 	// 	return grid[cellPosition.x, cellPosition.y].worldPosition;
     // }
 
-	public Node NodeFromWorldPoint(Vector3 worldPosition) {
-		float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
-		float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
+	public Node NodeFromWorldPoint(Vector3 worldPosition) 
+	{
+		// Debug.Log("x " + Mathf.Abs(worldPosition.x - transform.position.x));
+		// Debug.Log("y " + Mathf.Abs(worldPosition.z - transform.position.z));
+		// float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
+		// float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
+		float percentX = ((worldPosition.x - transform.position.x) + gridWorldSize.x/2) / gridWorldSize.x;
+		float percentY = ((worldPosition.z - transform.position.z) + gridWorldSize.y/2) / gridWorldSize.y;
+		// if(this.gameObject.name == "Boss1Arena")
+		// {
+		// 	Debug.Log("percentX: " + percentX + " - ((worldPosition.x - transform.position.x) + gridWorldSize.x/2) / gridWorldSize.x: " + (worldPosition.x - transform.position.x) + " + " + gridWorldSize.x/2 + " / " + gridWorldSize.x);
+		// 	Debug.Log("percentY: " + percentY + " - ((worldPosition.z - transform.position.z) + gridWorldSize.y/2) / gridWorldSize.y: " + (worldPosition.z - transform.position.z) + " + " + gridWorldSize.y/2 + " / " + gridWorldSize.y);
+		// }
+		
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
+		// if(this.gameObject.name == "Boss1Arena")
+		// {
+		// 	Debug.Log("percentX: " + percentX);
+		// 	Debug.Log("percentY: " + percentY);
+		// }
 
 		int x = Mathf.RoundToInt((gridSizeX-1) * percentX);
 		int y = Mathf.RoundToInt((gridSizeY-1) * percentY);
 
+		// if(this.gameObject.name == "Boss1Arena")
+		// {
+		// 	Debug.Log("x: " + x + " - Mathf.RoundToInt((gridSizeX-1) * percentX): " + (gridSizeX-1) + " * " + percentX);
+		// 	Debug.Log("y: " + y + " - Mathf.RoundToInt((gridSizeY-1) * percentY): " + (gridSizeY-1) + " * " + percentY);
+		// }
+
 		x = Mathf.Clamp(x ,0, gridSizeX);
 		y = Mathf.Clamp(y ,0, gridSizeY);
+
+		// if(this.gameObject.name == "Boss1Arena")
+		// {
+		// 	Debug.Log("x: " + x + " - Mathf.Clamp(x ,0, gridSizeX): " + x + ", 0, " + gridSizeX);
+		// 	Debug.Log("y: " + y + " - Mathf.Clamp(y ,0, gridSizeY): " + y + ", 0, " + gridSizeY);
+		// }
 
 		return grid[x,y];
 	}
@@ -170,7 +207,8 @@ public class Grid3D : MonoBehaviour {
 				int checkX = nodeX + x;
 				int checkY = nodeY + y;
 
-				if (checkX < 0 || checkX > gridSizeX || checkY < 0 || checkY > gridSizeY) {
+				if(!grid[checkX,checkY].walkable) 
+				{
 					validation = false;
 				}
 			}

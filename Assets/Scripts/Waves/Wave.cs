@@ -14,6 +14,9 @@ public class Wave : MonoBehaviour
     [Header("Spawnpoint")]
     public Vector3 spawnPosition;
     [HideInInspector] public float spawnRange;
+    
+    [Header("BossAfterWave")]
+    public bool bossAfterWave;
 
     private void Awake() {
         spawnPosition = transform.position;
