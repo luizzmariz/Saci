@@ -13,6 +13,7 @@ public class PlayerStateMachine : StateMachine
     [HideInInspector] public PlayerDashState dashState;
     [HideInInspector] public PlayerDamageState damageState;
     [HideInInspector] public PlayerDeadState deadState;
+    [HideInInspector] public PlayerUncontrollableState uncontrollableState;
     
 
     //Global information
@@ -35,6 +36,7 @@ public class PlayerStateMachine : StateMachine
     public bool canAttack;
     public bool canFire;
     public bool isAiming;
+    public bool uncontrollable;
 
     [Header("Movement")]
     public float runningMultiplier;
@@ -62,17 +64,14 @@ public class PlayerStateMachine : StateMachine
 
     private void Awake() {
         playerInput = GetComponent<PlayerInput>();
-        // playerInput.actions.FindActionMap("UI").Enable();
 
         rigidBody = GetComponent<Rigidbody>();
         bodySpriteRenderer = transform.Find("Visual").GetComponent<SpriteRenderer>();
         handsSpriteRenderer = transform.Find("Visual").Find("HandsVisual").GetComponent<SpriteRenderer>();
         characterOrientation = GetComponent<CharacterOrientation>();
-        // weaponManager = GetComponentInChildren<WeaponManager>();
         playerDamageable = GetComponent<PlayerDamageable>();
         playerHands = transform.Find("Hands").GetComponent<PlayerHands>();
-        //runningCoroutines = new List<string>();
-        // trailRenderer = GetComponentInChildren<TrailRenderer>();
+        
 
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
@@ -81,37 +80,14 @@ public class PlayerStateMachine : StateMachine
         dashState = new PlayerDashState(this);
         damageState = new PlayerDamageState(this);
         deadState = new PlayerDeadState(this);
+        uncontrollableState = new PlayerUncontrollableState(this);
 
         canAttack = true;
         canFire = true;
         canMove = true;
         canDash = true;
         playerDamageable.damageable = true;
-
-        // List<string> fd = new List<string>();
-        // fd.Add("nalivia");
-        // fd.Add("kuda");
-        // fd.Add("nalivia");
-        // fd.Add("nalivia");
-        // fd.Add("nalivia");
-        // fd.Add("julio");
-
-        // int i = 0;
-        // foreach(string name in fd)
-        // {
-        //     i++;
-        //     Debug.Log(name + " " + i);
-        // }
-
-        // i = 0;
-
-        // fd.Remove("nalivia");
-
-        // foreach(string name in fd)
-        // {
-        //     i++;
-        //     Debug.Log(name + " " + i);
-        // }
+        uncontrollable = false;
     }
 
     protected override BaseState GetInitialState() {
@@ -144,7 +120,7 @@ public class PlayerStateMachine : StateMachine
     {
         if(context.performed)
         {
-            if(canMove && !isAiming && !isDashing)
+            if(!uncontrollable && canMove && !isAiming && !isDashing)
             {
                 ChangeState(moveState);
             }
@@ -155,7 +131,7 @@ public class PlayerStateMachine : StateMachine
     {
         if(context.performed)
         {
-            if(canAttack && !isAttacking && !isDashing)
+            if(!uncontrollable && canAttack && !isAttacking && !isDashing)
             {
                 //Debug.Log("Changing to attackState, canAttack: " + canAttack + ", isDashing: " + isDashing + ", isAttacking: " + isAttacking + ". Time: " + Time.time);
                 // attackType = 1;
@@ -168,7 +144,7 @@ public class PlayerStateMachine : StateMachine
     {
         if(context.performed)
         {
-            if(canFire && !isAttacking && !isDashing)
+            if(!uncontrollable && canFire && !isAttacking && !isDashing)
             {
                 // attackType = 2;
                 ChangeState(fireState);
@@ -180,7 +156,7 @@ public class PlayerStateMachine : StateMachine
     {
         if(context.performed)
         {
-            if(canDash && !isDashing && !isAttacking)
+            if(!uncontrollable && canDash && !isDashing && !isAttacking)
             {
                 //Debug.Log("Changing to dashState, canDash: " + canDash + ", isDashing: " + isDashing + ", isAttacking: " + isAttacking + ". Time: " + Time.time);
                 ChangeState(dashState);

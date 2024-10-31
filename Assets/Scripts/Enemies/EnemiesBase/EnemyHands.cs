@@ -15,7 +15,7 @@ public class EnemyHands : MonoBehaviour
     void Awake()
     {
         enemyStateMachine = GetComponentInParent<EnemyStateMachine>(); 
-        attacksParentGameObject = GameObject.Find("Attacks").transform;
+        attacksParentGameObject = GameObject.Find("InstantiatedObjects").transform;
         //handsAnimator = GetComponent<Animator>(); 
     }
 

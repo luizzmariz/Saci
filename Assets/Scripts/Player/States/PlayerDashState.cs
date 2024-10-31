@@ -60,6 +60,11 @@ public class PlayerDashState : BaseState
             // playerStateMachine.StartCoroutine(playerStateMachine.DashCooldown());
             // playerStateMachine.runningCoroutines.Add("dash");
 
+            if(playerStateMachine.uncontrollable)
+            {
+                playerStateMachine.ChangeState(playerStateMachine.uncontrollableState);
+            }
+
             Vector2 moveVector = playerStateMachine.playerInput.actions["move"].ReadValue<Vector2>();
 
             if(moveVector != Vector2.zero// && playerStateMachine.canMove <-- qual a utilidade disso? não funcionaria por que há uma linha nesse script que faz canMove = false. REAVALIAR ESSAS VARIAVEIS

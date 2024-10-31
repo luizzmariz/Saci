@@ -14,7 +14,13 @@ public class PlayerIdleState : BaseState
         // Debug.Log(playerStateMachine.canAttack);
     }
 
-    public override void UpdateLogic() {
+    public override void UpdateLogic() 
+    {
+        if(playerStateMachine.uncontrollable)
+        {
+            playerStateMachine.ChangeState(playerStateMachine.uncontrollableState);
+        }
+
         Vector2 moveVector = playerStateMachine.playerInput.actions["move"].ReadValue<Vector2>();
 
         if(moveVector != Vector2.zero && !playerStateMachine.isAiming)

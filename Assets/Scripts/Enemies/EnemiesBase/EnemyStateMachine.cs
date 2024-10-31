@@ -16,13 +16,9 @@ public class EnemyStateMachine : StateMachine
     [HideInInspector] public SpriteRenderer handsSpriteRenderer;
 
     [Header("Bool variables")]
-    public bool canMove;
-    public bool canAttack;
     public bool isAttacking;
-    
+
     [Header("Attributes")]
-    [Range(0f, 50f)] public float rangeOfView;
-    [Range(0f, 25f)] public float rangeOfAttack;
     [Range(0f, 10f)] public float movementSpeed;
 
     [Header("Damage")]
@@ -30,9 +26,6 @@ public class EnemyStateMachine : StateMachine
     public float knockbackPower;
     [HideInInspector] public Vector3 knockbackVector;
     public bool beingPushed;
-    
-    [Header("Attack")]
-    public float attackCooldownTimer;
 
     protected virtual void Awake() {
         rigidBody = GetComponent<Rigidbody>();
@@ -45,9 +38,6 @@ public class EnemyStateMachine : StateMachine
         enemyHands = transform.Find("Hands").GetComponent<EnemyHands>();
 
         playerGameObject = GameObject.Find("Player");
-
-        canAttack = true;
-        canMove = true;
     }
 
     public virtual IEnumerator Cooldown(string ability)

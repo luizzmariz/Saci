@@ -36,7 +36,7 @@ public class PathRequestManager : MonoBehaviour {
 
 	void TryProcessNext() 
 	{
-		if (!isProcessingPath && pathRequestQueue.Count > 0) 
+		if(!isProcessingPath && pathRequestQueue.Count > 0) 
 		{
 			currentPathRequest = pathRequestQueue.Dequeue();
 			isProcessingPath = true;
@@ -51,13 +51,15 @@ public class PathRequestManager : MonoBehaviour {
 		TryProcessNext();
 	}
 
-	struct PathRequest {
+	struct PathRequest 
+	{
 		public Vector3 pathStart;
 		public Vector3 pathEnd;
 		public Action<Vector3[], bool> callback;
 		public GameObject enemy;
 
-		public PathRequest(Vector3 _start, Vector3 _end, Action<Vector3[], bool> _callback, GameObject _enemy) {
+		public PathRequest(Vector3 _start, Vector3 _end, Action<Vector3[], bool> _callback, GameObject _enemy) 
+		{
 			pathStart = _start;
 			pathEnd = _end;
 			callback = _callback;

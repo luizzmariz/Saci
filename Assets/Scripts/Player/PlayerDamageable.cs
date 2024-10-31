@@ -49,14 +49,16 @@ public class PlayerDamageable : Damageable
 
     public void Heal(float healAmount)
     {
-        while(healAmount > 0)
-        {
-            if(currentHealth < maxHealth)
-            {
-                currentHealth++;
-            }
-            healAmount--;
-        }
+        // while(healAmount > 0)
+        // {
+        //     if(currentHealth < maxHealth)
+        //     {
+        //         currentHealth++;
+        //     }
+        //     healAmount--;
+        // }
+
+        currentHealth += healAmount;
 
         playerHealthBar.CheckHearths(currentHealth, maxHealth);
     }

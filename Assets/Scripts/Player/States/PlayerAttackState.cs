@@ -49,6 +49,11 @@ public class PlayerAttackState : BaseState
             playerStateMachine.StartCoroutine(playerStateMachine.Cooldown("attack"));
             playerStateMachine.isAttacking = false;
 
+            if(playerStateMachine.uncontrollable)
+            {
+                playerStateMachine.ChangeState(playerStateMachine.uncontrollableState);
+            }
+
             Vector2 moveVector = playerStateMachine.playerInput.actions["move"].ReadValue<Vector2>();
 
             if(moveVector != Vector2.zero && !playerStateMachine.isAiming)

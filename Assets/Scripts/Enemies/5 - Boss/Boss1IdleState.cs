@@ -24,19 +24,6 @@ public class Boss1IdleState : BaseState
             {
                 Vector3 holderPosition = enemyStateMachine.transform.position;
                 Vector3 playerPosition = enemyStateMachine.playerGameObject.transform.position;
-                
-                // if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
-                // {
-                //     if(enemyStateMachine.canAttack)
-                //     {
-                //         stateMachine.ChangeState(enemyStateMachine.attackState);
-                //     }
-                //     enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
-                // }
-                // else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
-                // {
-                //     stateMachine.ChangeState(enemyStateMachine.chaseState);
-                // }
 
                 ChooseNextAttack(holderPosition, playerPosition);
             }
@@ -45,17 +32,31 @@ public class Boss1IdleState : BaseState
 
     public void ChooseNextAttack(Vector3 holderPosition, Vector3 playerPosition)
     {
-        if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
+        //enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+        if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack1Range)
         {
-            if(enemyStateMachine.canAttack)
+            if(enemyStateMachine.canDoAttack1)
             {
-                stateMachine.ChangeState(enemyStateMachine.attackState);
+                stateMachine.ChangeState(enemyStateMachine.attack1State);
             }
-            enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+            else if(enemyStateMachine.canDoAttack2)
+            {
+                stateMachine.ChangeState(enemyStateMachine.attack2State);
+            }
         }
-        else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfView)
+        else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack2Range)
         {
-            //Debug.Log(Vector3.Distance(holderPosition, playerPosition) + " - " + enemyStateMachine.rangeOfView);
+            if(enemyStateMachine.canDoAttack2)
+            {
+                stateMachine.ChangeState(enemyStateMachine.attack2State);
+            }
+            else if(enemyStateMachine.canDoAttack1)
+            {
+                stateMachine.ChangeState(enemyStateMachine.chaseState);
+            }
+        }
+        else
+        {
             stateMachine.ChangeState(enemyStateMachine.chaseState);
         }
     }

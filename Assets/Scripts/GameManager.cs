@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Game")]
     bool isInGame;
-    [HideInInspector] public WaveSpawner waveSpawner;
+    [HideInInspector] public LevelManager levelManager;
     public GameObject screenMessage;
     public int messageDuration;
 
@@ -65,9 +65,9 @@ public class GameManager : MonoBehaviour
     {
         if(isInGame)
         {
-            waveSpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
+            levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
             playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
-            screenMessage = GameObject.Find("Canvas").transform.Find("ScreenMessage").gameObject;
+            screenMessage = GameObject.Find("Canvas").transform.Find("FullScreenMessage").gameObject;
         }
         else
         {
@@ -94,6 +94,11 @@ public class GameManager : MonoBehaviour
 
             case "howToPlay":
                 HowToPlay();
+            break;
+
+            case "backToMenu":
+                scenesToLoad.Add(SceneManager.LoadSceneAsync("Menu"));
+                StartCoroutine(LoadingScreen());
             break;
 
             case "exit":
@@ -258,7 +263,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         screenMessage.SetActive(false);
         
-        StartCoroutine(waveSpawner.SpawnWave());
+        levelManager.StartLevel();
     }
 
     public IEnumerator EndGame(bool win)

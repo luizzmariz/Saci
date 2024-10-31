@@ -10,13 +10,26 @@ public class Boss1StateMachine : BossStateMachine
     [Header("States")]
     [HideInInspector] public Boss1IdleState idleState;
     [HideInInspector] public Boss1ChaseState chaseState;
-    [HideInInspector] public Boss1AttackState attackState;
+    [HideInInspector] public Boss1Attack1State attack1State;
+    [HideInInspector] public Boss1Attack2State attack2State;
     [HideInInspector] public Boss1DamageState damageState;
     [HideInInspector] public Boss1DeadState deadState;
+
+    [Header("Bool variables")]
+    public bool canDoAttack1;
+    public bool canDoAttack2;
 
     [Header("ShowPath")]
     public float nodeRadius;
     public bool ShowChasePath;
+
+    [Header("Attributes")]
+    [Range(0f, 25f)] public float attack1Range;
+    [Range(0f, 25f)] public float attack2Range;
+
+    [Header("Attack")]
+    public float attack1CooldownTimer;
+    public float attack2CooldownTimer;
 
     protected override void Awake() {
         base.Awake();
@@ -26,9 +39,13 @@ public class Boss1StateMachine : BossStateMachine
 
         idleState = new Boss1IdleState(this);
         chaseState = new Boss1ChaseState(this);
-        attackState = new Boss1AttackState(this);
+        attack1State = new Boss1Attack1State(this);
+        attack2State = new Boss1Attack2State(this);
         damageState = new Boss1DamageState(this);
         deadState = new Boss1DeadState(this);
+
+        canDoAttack1 = true;
+        canDoAttack2 = true;
     }
 
     protected override BaseState GetInitialState() {
@@ -39,11 +56,18 @@ public class Boss1StateMachine : BossStateMachine
     {
         switch(ability)
         {
-            case "attack":
+            case "attack1":
             // Debug.Log("attack cooldown started");
-            yield return new WaitForSeconds(attackCooldownTimer);
+            yield return new WaitForSeconds(attack1CooldownTimer);
             // Debug.Log("attack cooldown ended");
-            canAttack = true;
+            canDoAttack1 = true;
+            break;
+
+            case "attack2":
+            // Debug.Log("attack cooldown started");
+            yield return new WaitForSeconds(attack2CooldownTimer);
+            // Debug.Log("attack cooldown ended");
+            canDoAttack2 = true;
             break;
 
             default:
@@ -51,21 +75,21 @@ public class Boss1StateMachine : BossStateMachine
         }
     }
 
-    private void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
-        string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
-        GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
-        GUILayout.EndArea();
-    }
+    // private void OnGUI()
+    // {
+    //     GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
+    //     string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
+    //     GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
+    //     GUILayout.EndArea();
+    // }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rangeOfView);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attack2Range);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, rangeOfAttack);
+        Gizmos.DrawWireSphere(transform.position, attack1Range);
 
 		if(ShowChasePath && chaseState != null && chaseState.path != null)
 		{

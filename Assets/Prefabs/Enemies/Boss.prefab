@@ -346,22 +346,23 @@ MonoBehaviour:
   enemyHands: {fileID: 0}
   bodySpriteRenderer: {fileID: 0}
   handsSpriteRenderer: {fileID: 0}
-  canMove: 0
-  canAttack: 0
   isAttacking: 0
-  rangeOfView: 25
-  rangeOfAttack: 2
   movementSpeed: 1.1
   knockbackDuration: 0.1
   knockbackPower: 5
   knockbackVector: {x: 0, y: 0, z: 0}
   beingPushed: 0
-  attackCooldownTimer: 1.6
   bossFightManager: {fileID: 0}
   battleStarted: 0
   pathRequestManager: {fileID: 0}
+  canDoAttack1: 0
+  canDoAttack2: 0
   nodeRadius: 0.25
   ShowChasePath: 1
+  attack1Range: 2.5
+  attack2Range: 6
+  attack1CooldownTimer: 1
+  attack2CooldownTimer: 1
 --- !u!136 &1906646287295962044
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -617,7 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 32
+  maxHealth: 180
   damageable: 1
 --- !u!136 &1058654690115282222
 CapsuleCollider:

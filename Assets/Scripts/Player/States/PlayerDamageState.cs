@@ -50,6 +50,11 @@ public class PlayerDamageState : BaseState
     public override void UpdateLogic() {
         if(!playerStateMachine.beingPushed)
         {
+            if(playerStateMachine.uncontrollable)
+            {
+                playerStateMachine.ChangeState(playerStateMachine.uncontrollableState);
+            }
+            
             playerStateMachine.ChangeState(playerStateMachine.idleState);
         }
     }

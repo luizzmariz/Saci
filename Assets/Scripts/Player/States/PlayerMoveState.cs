@@ -13,7 +13,13 @@ public class PlayerMoveState : BaseState
         
     }
 
-    public override void UpdateLogic() {
+    public override void UpdateLogic() 
+    {
+        if(playerStateMachine.uncontrollable)
+        {
+            playerStateMachine.ChangeState(playerStateMachine.uncontrollableState);
+        }
+
         Vector2 moveVectorV2 = playerStateMachine.playerInput.actions["move"].ReadValue<Vector2>();
         moveVector.x = moveVectorV2.x;
         moveVector.z = moveVectorV2.y;

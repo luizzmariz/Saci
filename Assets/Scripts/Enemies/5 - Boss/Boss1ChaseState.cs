@@ -36,22 +36,21 @@ public class Boss1ChaseState : BaseState
 
         holderPosition = enemyStateMachine.transform.position;
         playerPosition = enemyStateMachine.playerGameObject.transform.position;
+
+        float targetDistance = Vector3.Distance(holderPosition, playerPosition);
         
-        if(Vector3.Distance(holderPosition, playerPosition) > enemyStateMachine.rangeOfView)
+        if(targetDistance <= enemyStateMachine.attack1Range && enemyStateMachine.canDoAttack1)
         {
-            stateMachine.ChangeState(enemyStateMachine.idleState);
+            stateMachine.ChangeState(enemyStateMachine.attack1State);
         }
-        else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.rangeOfAttack)
+        else if(targetDistance <= enemyStateMachine.attack2Range && enemyStateMachine.canDoAttack2)
         {
-            if(enemyStateMachine.canAttack)
-            {
-                stateMachine.ChangeState(enemyStateMachine.attackState);
-            }
-            else
-            {
-                stateMachine.ChangeState(enemyStateMachine.idleState);
-            }
+            stateMachine.ChangeState(enemyStateMachine.attack2State);
         }
+        // else if()
+        // {
+        //     stateMachine.ChangeState(enemyStateMachine.idleState);
+        // }
     }
 
     //This function runs at LateUpdate()
@@ -66,9 +65,9 @@ public class Boss1ChaseState : BaseState
             followingPath = false;
         }
 
-        if(Vector3.Distance(holderPosition, playerPosition) < enemyStateMachine.rangeOfView * 0.8f)
-        {
-            //Debug.Log("1 = ta vindo pra ca??");
+        // if(Vector3.Distance(holderPosition, playerPosition) < enemyStateMachine.rangeOfView * 0.8f)
+        // {
+        //     //Debug.Log("1 = ta vindo pra ca??");
             if(!hasAskedPath && !followingPath)
             {
                 //Debug.Log("2 - entra aqui");
@@ -95,13 +94,13 @@ public class Boss1ChaseState : BaseState
                 }
                 //Debug.Log("Seguindo caminho, hasAskedPath = " + hasAskedPath + ", followingPath = " + followingPath);
             }
-        }
-        else
-        {
-            //Debug.Log("6 - ta vindo p ca né?");
-            enemyStateMachine.rigidBody.velocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
-            Debug.DrawRay(stateMachine.transform.position, (playerPosition - holderPosition).normalized, Color.grey);
-        }
+        // }
+        // else
+        // {
+        //     //Debug.Log("6 - ta vindo p ca né?");
+        //     enemyStateMachine.rigidBody.velocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
+        //     Debug.DrawRay(stateMachine.transform.position, (playerPosition - holderPosition).normalized, Color.grey);
+        // }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {

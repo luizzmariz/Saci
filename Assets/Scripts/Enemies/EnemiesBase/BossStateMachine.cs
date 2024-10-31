@@ -14,7 +14,7 @@ public class BossStateMachine : EnemyStateMachine
     {
         base.Awake();
 
-        bossFightManager = GameObject.Find("BossFightManager").GetComponent<BossFightManager>();
+        bossFightManager = GameObject.Find("LevelManager").GetComponent<BossFightManager>();
     }
 }
 

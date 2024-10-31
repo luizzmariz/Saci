@@ -15,7 +15,7 @@ public class PlayerHands : MonoBehaviour
     void Awake()
     {
         playerStateMachine = GetComponentInParent<PlayerStateMachine>(); 
-        attacksParentGameObject = GameObject.Find("Attacks").transform;
+        attacksParentGameObject = GameObject.Find("InstantiatedObjects").transform;
         //handsAnimator = GetComponentInParent<Animator>(); 
     }
 
