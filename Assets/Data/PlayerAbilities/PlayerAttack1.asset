@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ced7fc42c3f71468a174765bc1c2e4, type: 3}
+  m_Name: PlayerAttack1
+  m_EditorClassIdentifier: 
+  name: Simple Attack
+  cooldownTime: 0.25
+  state: 0
+  projectileBase: {fileID: 7675393672178942330, guid: 2dd498c9a6c1d244c928a201f197b7af, type: 3}
+  projectiles:
+  - damage: 16
+    duration: 1
+    fireForce: 9.5
+    size: 0
+    spreadAngle: 0
+  projectileSpawnHeight: 0.3
+  needActivation: 0

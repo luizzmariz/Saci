@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e800bf915abcd944597a53b3f469166a, type: 3}
+  m_Name: Wave1
+  m_EditorClassIdentifier: 
+  subwaves:
+  - enemies:
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    timeToNextEnemy: 1.25
+  - enemies:
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 5090585164609990662, guid: f4b2ddecaf2b39444892084d25f0acef, type: 3}
+    - {fileID: 5090585164609990662, guid: f4b2ddecaf2b39444892084d25f0acef, type: 3}
+    timeToNextEnemy: 1
+  - enemies:
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 5090585164609990662, guid: f4b2ddecaf2b39444892084d25f0acef, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 5090585164609990662, guid: f4b2ddecaf2b39444892084d25f0acef, type: 3}
+    - {fileID: 7874121968265342597, guid: 23b3f9713c91f1b4991a181dca7c50cf, type: 3}
+    - {fileID: 5090585164609990662, guid: f4b2ddecaf2b39444892084d25f0acef, type: 3}
+    - {fileID: 5090585164609990662, guid: f4b2ddecaf2b39444892084d25f0acef, type: 3}
+    - {fileID: 8344929755063982904, guid: 527d6a48d7a1ee548b50552d68dad4bc, type: 3}
+    timeToNextEnemy: 2
+  currentSubWaveIndex: 0
+  timeBetweenSubwaves: 2
+  useSpecificSpawnArea: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnRange: 13

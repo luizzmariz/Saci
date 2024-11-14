@@ -6,20 +6,26 @@ public class StateMachine : MonoBehaviour {
     void Start() 
     {
         currentState = GetInitialState();
-        if (currentState != null)
+        if(currentState != null)
+        {
             currentState.Enter();
+        }
     }
 
     protected virtual void Update() 
     {
-        if (currentState != null)
+        if(currentState != null)
+        {
             currentState.UpdateLogic();
+        }
     }
 
     void LateUpdate() 
     {
-        if (currentState != null)
+        if(currentState != null)
+        {
             currentState.UpdatePhysics();
+        }
     }
 
     public void ChangeState(BaseState newState) 

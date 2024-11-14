@@ -52,13 +52,22 @@ public class GameManager : MonoBehaviour
 
         GetComponents();
 
-        openMenu.Enable();
-        openMenu.performed += context => OnOptions(context);
-
         if(Input.GetJoystickNames().Count() > 0 && Input.GetJoystickNames()[0] != "")
         {
             EventSystem.current.SetSelectedGameObject(mainMenuSelectedFirst);
         }
+    }
+
+    private void OnEnable()
+    {
+        openMenu.Enable();
+        openMenu.performed += context => OnOptions(context);
+    }
+
+    private void OnDisable()
+    {
+        openMenu.Disable();
+        openMenu.performed -= context => OnOptions(context);
     }
 
     void GetComponents()

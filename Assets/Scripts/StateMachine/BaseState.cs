@@ -3,7 +3,8 @@ public class BaseState
     public string name;
     protected StateMachine stateMachine;
 
-    public BaseState(string name, StateMachine stateMachine) {
+    public BaseState(string name, StateMachine stateMachine) 
+    {
         this.name = name;
         this.stateMachine = stateMachine;
     }

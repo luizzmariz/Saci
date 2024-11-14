@@ -257,7 +257,7 @@ MonoBehaviour:
   characterSpriteRenderer: {fileID: 8589432187004174988}
   handsSpriteRenderer: {fileID: 651967569309415279}
   characterDown: {fileID: 21300000, guid: 47107351b48e5074ab9ed77ab87bc3d0, type: 3}
-  characterUp: {fileID: 21300000, guid: a996a0e44ce13fb4182d71182b688956, type: 3}
+  characterUp: {fileID: 21300000, guid: 3249af646ab45764fa7e1e94925c40b7, type: 3}
   characterSide: {fileID: 21300000, guid: 61df2087ae08eec45aa6524cd9edec9d, type: 3}
 --- !u!1 &4673182991964699898
 GameObject:

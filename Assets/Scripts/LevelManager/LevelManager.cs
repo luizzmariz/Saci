@@ -34,9 +34,18 @@ public class LevelManager : MonoBehaviour
 
         unlockExtraBossFight.Enable();
         unlockExtraBossFight.performed += context => UnlockExtraBossFight();
+    }
 
+    private void OnEnable()
+    {
         testStart.Enable();
         testStart.performed += context => StartLevel();
+    }
+
+    private void OnDisable()
+    {
+        testStart.Disable();
+        testStart.performed -= context => StartLevel();
     }
 
     void GetComponents()

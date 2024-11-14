@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BossFight", order = 2)]
+[CreateAssetMenu(fileName = "BossFight", menuName = "Data/Level Events/Boss Fight", order = 2)]
 public class BossFight : LevelEvent
 {
     [Header("Boss Info")]

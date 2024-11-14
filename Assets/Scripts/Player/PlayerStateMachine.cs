@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : StateMachine
 {
-    //States
+    #region States 
     [HideInInspector] public PlayerIdleState idleState;
     [HideInInspector] public PlayerMoveState moveState;
     [HideInInspector] public PlayerAttackState attackState;
@@ -14,11 +14,9 @@ public class PlayerStateMachine : StateMachine
     [HideInInspector] public PlayerDamageState damageState;
     [HideInInspector] public PlayerDeadState deadState;
     [HideInInspector] public PlayerUncontrollableState uncontrollableState;
+    #endregion
     
-
-    //Global information
-    
-    //GameObject information
+    #region Components 
     [HideInInspector] public PlayerInput playerInput;
     [HideInInspector] public Rigidbody rigidBody;
     [HideInInspector] public SpriteRenderer bodySpriteRenderer;
@@ -26,6 +24,9 @@ public class PlayerStateMachine : StateMachine
     [HideInInspector] public CharacterOrientation characterOrientation;
     [HideInInspector] public PlayerDamageable playerDamageable;
     [HideInInspector] public PlayerHands playerHands;
+    [HideInInspector] public PlayerAbilityHolder playerAbilityHolder;
+    [HideInInspector] public Animator playerAnimator;
+    #endregion
 
     // public WeaponManager weaponManager;
     // public TrailRenderer trailRenderer;
@@ -37,16 +38,20 @@ public class PlayerStateMachine : StateMachine
     public bool canFire;
     public bool isAiming;
     public bool uncontrollable;
+    bool CanUseAbility
+    {
+        get => !isAttacking && !isDashing;
+    }
 
     [Header("Movement")]
     public float runningMultiplier;
     public float movementSpeed;
 
     [Header("Dash")]
-    public bool isDashing;
-    public float dashingPower;
-    public float dashCooldownTime;
-    public float dashingTime;
+    [HideInInspector] public bool isDashing;
+    // public float dashingPower;
+    // public float dashCooldownTime;
+    // public float dashingTime;
 
     [Header("Damage")]
     public float knockbackDuration;
@@ -62,7 +67,26 @@ public class PlayerStateMachine : StateMachine
     [Header("InvencibilityTime")]
     public float invencibilityTime;
 
-    private void Awake() {
+    [Header("Debug")]
+    [SerializeField] InputAction debugInput;
+    [SerializeField] public bool debugVariable;
+
+    void Awake() 
+    {
+        GetComponents();
+
+        SetStates();
+
+        canAttack = true;
+        canFire = true;
+        canMove = true;
+        canDash = true;
+        playerDamageable.damageable = true;
+        uncontrollable = false;
+    }
+
+    void GetComponents()
+    {
         playerInput = GetComponent<PlayerInput>();
 
         rigidBody = GetComponent<Rigidbody>();
@@ -71,8 +95,12 @@ public class PlayerStateMachine : StateMachine
         characterOrientation = GetComponent<CharacterOrientation>();
         playerDamageable = GetComponent<PlayerDamageable>();
         playerHands = transform.Find("Hands").GetComponent<PlayerHands>();
-        
+        playerAbilityHolder = GetComponent<PlayerAbilityHolder>();
+        playerAnimator = GetComponent<Animator>();
+    }
 
+    void SetStates()
+    {
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
@@ -81,13 +109,23 @@ public class PlayerStateMachine : StateMachine
         damageState = new PlayerDamageState(this);
         deadState = new PlayerDeadState(this);
         uncontrollableState = new PlayerUncontrollableState(this);
+    }
 
-        canAttack = true;
-        canFire = true;
-        canMove = true;
-        canDash = true;
-        playerDamageable.damageable = true;
-        uncontrollable = false;
+    private void OnEnable()
+    {
+        debugInput.Enable();
+        debugInput.performed += context => DebugFunction();
+    }
+
+    private void OnDisable()
+    {
+        debugInput.Disable();
+        debugInput.performed -= context => DebugFunction();
+    }
+
+    void DebugFunction()
+    {
+        debugVariable = !debugVariable;
     }
 
     protected override BaseState GetInitialState() {
@@ -127,40 +165,27 @@ public class PlayerStateMachine : StateMachine
         }
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void ChangeToAttackState()
     {
-        if(context.performed)
+        if(!uncontrollable && CanUseAbility)
         {
-            if(!uncontrollable && canAttack && !isAttacking && !isDashing)
-            {
-                //Debug.Log("Changing to attackState, canAttack: " + canAttack + ", isDashing: " + isDashing + ", isAttacking: " + isAttacking + ". Time: " + Time.time);
-                // attackType = 1;
-                ChangeState(attackState);
-            }
+            ChangeState(attackState);
         }
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    public void ChangeToFireState()
     {
-        if(context.performed)
+        if(!uncontrollable && CanUseAbility)
         {
-            if(!uncontrollable && canFire && !isAttacking && !isDashing)
-            {
-                // attackType = 2;
-                ChangeState(fireState);
-            }
+            ChangeState(fireState);
         }
     }
 
-    public void OnDash(InputAction.CallbackContext context)
+    public void ChangeToDashState()
     {
-        if(context.performed)
+        if(!uncontrollable && CanUseAbility)
         {
-            if(!uncontrollable && canDash && !isDashing && !isAttacking)
-            {
-                //Debug.Log("Changing to dashState, canDash: " + canDash + ", isDashing: " + isDashing + ", isAttacking: " + isAttacking + ". Time: " + Time.time);
-                ChangeState(dashState);
-            }
+            ChangeState(dashState);
         }
     }
 
@@ -168,10 +193,10 @@ public class PlayerStateMachine : StateMachine
     {
         switch(ability)
         {
-            case "dash":
-            yield return new WaitForSeconds(dashCooldownTime);
-            canDash = true;
-            break;
+            // case "dash":
+            // yield return new WaitForSeconds(dashCooldownTime);
+            // canDash = true;
+            // break;
 
             case "attack":
             yield return new WaitForSeconds(attack1CooldownTimer);
@@ -192,7 +217,11 @@ public class PlayerStateMachine : StateMachine
 
     public void AttackEnd()
     {
-        attacked = false;
-        playerHands.AttackEnd();
+        isAttacking = false;
+    }
+
+    public void DashEnd()
+    {
+        isDashing = false;
     }
 }

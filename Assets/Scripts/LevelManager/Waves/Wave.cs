@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyWave", order = 1)]
+[CreateAssetMenu(fileName = "EnemyWave", menuName = "Data/Level Events/Enemy Wave", order = 1)]
 public class Wave : LevelEvent
 {
     [Header("Wave Info")]

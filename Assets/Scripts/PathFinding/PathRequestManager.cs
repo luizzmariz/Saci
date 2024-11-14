@@ -65,6 +65,5 @@ public class PathRequestManager : MonoBehaviour {
 			callback = _callback;
 			enemy = _enemy;
 		}
-
 	}
 }

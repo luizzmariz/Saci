@@ -250,6 +250,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b8aab975-9767-4e2d-a176-e63a39c147d6",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5615e810-71b0-4e55-b5ca-d12b7f562cb5",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
