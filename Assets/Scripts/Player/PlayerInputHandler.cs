@@ -11,6 +11,8 @@ public class PlayerInputHandler : MonoBehaviour
     [HideInInspector] public PlayerInput playerInput;
     #endregion
 
+    int attackdebugindex = 0;
+
     public enum PlayerControlScheme
     {
         keyboardAndMouse,
@@ -97,7 +99,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if(context.performed && playerAbilityHolder.meleeAttack != null)
         {
-            if(playerAbilityHolder.CheckIfAbilityIsReady(playerAbilityHolder.meleeAttack))
+            if(playerAbilityHolder.CheckIfCanUseAbility(playerAbilityHolder.meleeAttack))
             {
                 playerStateMachine.ChangeToAttackState();
                 playerAbilityHolder.meleeAttack.Activate();
@@ -109,8 +111,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if(context.performed && playerAbilityHolder.rangedAttack != null)
         {
-            if(playerAbilityHolder.CheckIfAbilityIsReady(playerAbilityHolder.rangedAttack))
+            if(playerAbilityHolder.CheckIfCanUseAbility(playerAbilityHolder.rangedAttack))
             {
+                attackdebugindex++;
+                //Debug.Log("PlayerInput: " + attackdebugindex);
+
                 playerStateMachine.ChangeToFireState();
                 playerAbilityHolder.UseAbility(playerAbilityHolder.rangedAttack);
             }
@@ -121,10 +126,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if(context.performed && playerAbilityHolder.dash != null)
         {
-            if(playerAbilityHolder.CheckIfAbilityIsReady(playerAbilityHolder.dash))
+            if(playerAbilityHolder.CheckIfCanUseAbility(playerAbilityHolder.dash))
             {
                  playerStateMachine.ChangeToDashState();
-                playerAbilityHolder.dash.Activate();   
+                playerAbilityHolder.UseAbility(playerAbilityHolder.dash);
             }
         }
     }

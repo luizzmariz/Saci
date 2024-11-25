@@ -33,9 +33,9 @@ public class Boss1IdleState : BaseState
     public void ChooseNextAttack(Vector3 holderPosition, Vector3 playerPosition)
     {
         //enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
-        if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack1Range)
+        if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack1Range && !enemyStateMachine.isPerformingAttack2)
         {
-            if(enemyStateMachine.canDoAttack1)
+            if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack1))
             {
                 stateMachine.ChangeState(enemyStateMachine.attack1State);
             }

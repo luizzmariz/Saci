@@ -21,10 +21,10 @@ public class Boss1Attack1State : BaseState
         enemyStateMachine.rigidBody.velocity = Vector3.zero;
 
         // enemyStateMachine.canMove = false;
-        enemyStateMachine.canDoAttack1 = false;
+        //enemyStateMachine.canDoAttack1 = false;
         enemyStateMachine.enemyDamageable.damageable = true;
         enemyStateMachine.isAttacking = true;
-        hasAttacked = false;
+        //hasAttacked = false;
     }
 
     public override void UpdateLogic() {
@@ -59,23 +59,26 @@ public class Boss1Attack1State : BaseState
 
     public override void UpdatePhysics() 
     {
-        if(!hasAttacked)
-        {
-            holderPosition = enemyStateMachine.transform.position;
-            playerPosition = enemyStateMachine.playerGameObject.transform.position;
+        enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack1);
+        enemyStateMachine.animator.SetTrigger("Attack1");
+        // if(!hasAttacked)
+        // {
+        //     holderPosition = enemyStateMachine.transform.position;
+        //     playerPosition = enemyStateMachine.playerGameObject.transform.position;
 
-            Vector3 attackDirection = playerPosition - holderPosition;
-            enemyStateMachine.enemyHands.Attack(attackDirection);
-            hasAttacked = true;
+        //     Vector3 attackDirection = playerPosition - holderPosition;
+        //     enemyStateMachine.enemyHands.Attack(attackDirection);
+        //     hasAttacked = true;
 
-            // enemyStateMachine.isAttacking = false;
-        }
+        //     // enemyStateMachine.isAttacking = false;
+        // }
     }
 
     public override void Exit() 
     {
+        enemyStateMachine.enemyAbilityHolder.EndAbility(enemyStateMachine.attack1);
         // enemyStateMachine.canMove = true;
-        hasAttacked = false;
-        enemyStateMachine.StartCoroutine(enemyStateMachine.Cooldown("attack1"));
+        //hasAttacked = false;
+        //enemyStateMachine.StartCoroutine(enemyStateMachine.Cooldown("attack1"));
     }
 }

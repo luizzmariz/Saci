@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Simple Dash
   cooldownTime: 0.45
-  attacksParentGameObject: {fileID: 0}
+  icon: {fileID: 21300000, guid: 4642209fa136a3f4495530f2e3396196, type: 3}
   state: 0
   dashingPower: 5
   dashingTime: 0.35

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Boss1StateMachine : BossStateMachine
 {
-    [Header("States")]
-    public PathRequestManager pathRequestManager;
+    [Header("Components")]
+    [HideInInspector] public PathRequestManager pathRequestManager;
+    [HideInInspector] public EnemyAbilityHolder enemyAbilityHolder;
 
     [Header("States")]
     [HideInInspector] public Boss1IdleState idleState;
@@ -15,9 +16,14 @@ public class Boss1StateMachine : BossStateMachine
     [HideInInspector] public Boss1DamageState damageState;
     [HideInInspector] public Boss1DeadState deadState;
 
+    [Header("Abilities")]
+    [HideInInspector] public Ability attack1;
+    [HideInInspector] public Ability attack2;
+
     [Header("Bool variables")]
     public bool canDoAttack1;
     public bool canDoAttack2;
+    public bool isPerformingAttack2;
 
     [Header("ShowPath")]
     public float nodeRadius;
@@ -35,7 +41,14 @@ public class Boss1StateMachine : BossStateMachine
         base.Awake();
 
         pathRequestManager = GameObject.Find("Boss1Arena").GetComponent<PathRequestManager>();
+        enemyAbilityHolder = GetComponent<EnemyAbilityHolder>();
         //Debug.Log(pathRequestManager);
+
+        if(enemyAbilityHolder.Abilities != null)
+        {
+            attack1 = enemyAbilityHolder.Abilities[0];
+            attack2 = enemyAbilityHolder.Abilities[1];
+        }
 
         idleState = new Boss1IdleState(this);
         chaseState = new Boss1ChaseState(this);
@@ -52,28 +65,28 @@ public class Boss1StateMachine : BossStateMachine
         return idleState;
     }
 
-    public override IEnumerator Cooldown(string ability)
-    {
-        switch(ability)
-        {
-            case "attack1":
-            // Debug.Log("attack cooldown started");
-            yield return new WaitForSeconds(attack1CooldownTimer);
-            // Debug.Log("attack cooldown ended");
-            canDoAttack1 = true;
-            break;
+    // public override IEnumerator Cooldown(string ability)
+    // {
+    //     switch(ability)
+    //     {
+    //         case "attack1":
+    //         // Debug.Log("attack cooldown started");
+    //         yield return new WaitForSeconds(attack1CooldownTimer);
+    //         // Debug.Log("attack cooldown ended");
+    //         canDoAttack1 = true;
+    //         break;
 
-            case "attack2":
-            // Debug.Log("attack cooldown started");
-            yield return new WaitForSeconds(attack2CooldownTimer);
-            // Debug.Log("attack cooldown ended");
-            canDoAttack2 = true;
-            break;
+    //         case "attack2":
+    //         // Debug.Log("attack cooldown started");
+    //         yield return new WaitForSeconds(attack2CooldownTimer);
+    //         // Debug.Log("attack cooldown ended");
+    //         canDoAttack2 = true;
+    //         break;
 
-            default:
-            break;
-        }
-    }
+    //         default:
+    //         break;
+    //     }
+    // }
 
     // private void OnGUI()
     // {
@@ -108,7 +121,7 @@ public class Boss1StateMachine : BossStateMachine
         {
             ChangeState(deadState);
         }
-        else
+        else if(!isAttacking)
         {
             this.knockbackVector = knockbackVector;
             ChangeState(damageState);

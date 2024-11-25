@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 1906646287295962044}
   - component: {fileID: 2010998695656151715}
   - component: {fileID: 450298452136536398}
+  - component: {fileID: 8307673971598695469}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -355,6 +356,9 @@ MonoBehaviour:
   bossFightManager: {fileID: 0}
   battleStarted: 0
   pathRequestManager: {fileID: 0}
+  enemyAbilityHolder: {fileID: 0}
+  attack1: {fileID: 0}
+  attack2: {fileID: 0}
   canDoAttack1: 0
   canDoAttack2: 0
   nodeRadius: 0.25
@@ -412,7 +416,7 @@ Animator:
   m_GameObject: {fileID: 4673182991964699898}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: df99b2a03a95e99458c89cdd77895695, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1aa3ae737a947ee4898819b487b78bb4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -423,6 +427,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8307673971598695469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673182991964699898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a740117be347c824bae5245b961dea50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Abilities:
+  - {fileID: 11400000, guid: 968cab58f88f7e74c97fa702cac24f96, type: 2}
+  - {fileID: 11400000, guid: cf85f64e02799dc43b602f57b5e0e411, type: 2}
 --- !u!1 &5607809649682514283
 GameObject:
   m_ObjectHideFlags: 0

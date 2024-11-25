@@ -14,8 +14,6 @@ public class PlayerDash : PlayerAbility
         base.Activate();
         GetComponents();
 
-        Debug.Log(playerOrientation);
-
         Vector3 dashDirection = playerOrientation.lastOrientation;
 
         if(dashDirection == Vector3.zero)
@@ -35,7 +33,7 @@ public class PlayerDash : PlayerAbility
 
         // playerStateMachine.trailRenderer.emitting = false;
         playerStateMachine.rigidBody.velocity = Vector3.zero;
-
+        
         ContactStateMachine();
     }
 

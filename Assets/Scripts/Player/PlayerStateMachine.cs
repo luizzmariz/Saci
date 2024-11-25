@@ -70,6 +70,7 @@ public class PlayerStateMachine : StateMachine
     [Header("Debug")]
     [SerializeField] InputAction debugInput;
     [SerializeField] public bool debugVariable;
+    int attackdebugindex = 0;
 
     void Awake() 
     {
@@ -217,6 +218,8 @@ public class PlayerStateMachine : StateMachine
 
     public void AttackEnd()
     {
+        attackdebugindex++;
+        //Debug.Log("PlayerStateMachine: " + attackdebugindex);
         isAttacking = false;
     }
 

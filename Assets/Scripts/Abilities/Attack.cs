@@ -39,11 +39,6 @@ public class Attack : MonoBehaviour
         isAttacking = true;
     }
 
-    protected virtual void Update()
-    {
-        
-    }
-
     protected virtual void DealDamage(Collider collider)
     {
 

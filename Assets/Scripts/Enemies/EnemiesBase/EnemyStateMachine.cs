@@ -29,7 +29,7 @@ public class EnemyStateMachine : StateMachine
 
     protected virtual void Awake() {
         rigidBody = GetComponent<Rigidbody>();
-        animator = transform.Find("Visual").GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         characterOrientation = GetComponent<CharacterOrientation>();
         bodySpriteRenderer = transform.Find("Visual").GetComponent<SpriteRenderer>();

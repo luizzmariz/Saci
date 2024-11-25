@@ -41,17 +41,17 @@ public class PlayerMoveState : BaseState
 
     void Move()
     {
-        if(playerStateMachine.debugVariable)
-        {
-            Debug.Log("Time.fixedDeltaTime: " + Time.fixedDeltaTime);
-            //Debug.Log("Time.deltaTime: " + Time.deltaTime);
+        // if(playerStateMachine.debugVariable)
+        // {
+        //     Debug.Log("Time.fixedDeltaTime: " + Time.fixedDeltaTime);
+        //     //Debug.Log("Time.deltaTime: " + Time.deltaTime);
 
-            playerStateMachine.rigidBody.velocity += moveVector.normalized * playerStateMachine.movementSpeed * Time.fixedDeltaTime;
-        }
-        else
-        {
+        //     playerStateMachine.rigidBody.velocity += moveVector.normalized * playerStateMachine.movementSpeed * Time.fixedDeltaTime;
+        // }
+        // else
+        // {
             playerStateMachine.rigidBody.velocity = moveVector.normalized * playerStateMachine.movementSpeed;
-        }
+        // }
     }
 
     void SendOrientation()

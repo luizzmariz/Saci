@@ -7,6 +7,7 @@ public class Ability : ScriptableObject
     [Header("Ability General Statistics")]
     public new string name;
     public float cooldownTime;
+    public Sprite icon;
 
     protected GameObject abilityOwnerGameObject;
     protected Transform attacksParentGameObject;
@@ -22,7 +23,7 @@ public class Ability : ScriptableObject
 
     public AbilityState state = AbilityState.ready;
 
-    void OnEnable()
+    public virtual void OnEnable()
     {
         state = AbilityState.ready;
     }
@@ -34,5 +35,8 @@ public class Ability : ScriptableObject
     }
 
     public virtual void Activate() 
+    {} 
+
+    public virtual void Deactivate() 
     {} 
 }

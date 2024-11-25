@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerAttack1", menuName = "Data/Player/Abilities/Attack1")]
+[CreateAssetMenu(fileName = "PlayerRangedAttack", menuName = "Data/Player/Abilities/RangedAttack")]
 public class PlayerRangedAttack : PlayerAbility
 {
     [Header("Player Ranged Attack Statistics")]

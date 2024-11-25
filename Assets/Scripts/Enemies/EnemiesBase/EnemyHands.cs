@@ -53,7 +53,7 @@ public class EnemyHands : MonoBehaviour
 
     public void AttackEnd()
     {
-        if(!actualAttack.isProjectile)
+        if(actualAttack != null && !actualAttack.isProjectile)
         {
             actualAttack.StopAttack();
         }
