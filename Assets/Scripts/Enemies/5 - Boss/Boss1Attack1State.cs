@@ -18,13 +18,13 @@ public class Boss1Attack1State : BaseState
 
     public override void Enter() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.velocity = enemyStateMachine.movementVector;
 
         // enemyStateMachine.canMove = false;
         //enemyStateMachine.canDoAttack1 = false;
         enemyStateMachine.enemyDamageable.damageable = true;
         enemyStateMachine.isAttacking = true;
-        //hasAttacked = false;
+        hasAttacked = false;
     }
 
     public override void UpdateLogic() {
@@ -59,8 +59,14 @@ public class Boss1Attack1State : BaseState
 
     public override void UpdatePhysics() 
     {
-        enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack1);
-        enemyStateMachine.animator.SetTrigger("Attack1");
+        if(!hasAttacked)
+        {
+            //enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack1);
+            enemyStateMachine.animator.SetTrigger("Attack1");
+
+            hasAttacked = true;
+        }
+
         // if(!hasAttacked)
         // {
         //     holderPosition = enemyStateMachine.transform.position;
@@ -76,7 +82,9 @@ public class Boss1Attack1State : BaseState
 
     public override void Exit() 
     {
+        enemyStateMachine.rigidBody.velocity = Vector3.zero;
         enemyStateMachine.enemyAbilityHolder.EndAbility(enemyStateMachine.attack1);
+        
         // enemyStateMachine.canMove = true;
         //hasAttacked = false;
         //enemyStateMachine.StartCoroutine(enemyStateMachine.Cooldown("attack1"));

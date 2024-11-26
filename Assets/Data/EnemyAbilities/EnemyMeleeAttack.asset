@@ -15,7 +15,7 @@ MonoBehaviour:
   name: AreaAttack
   cooldownTime: 3
   icon: {fileID: 0}
-  state: 0
+  state: 2
   meleeBase: {fileID: 0}
   attacks:
   - damage: 24

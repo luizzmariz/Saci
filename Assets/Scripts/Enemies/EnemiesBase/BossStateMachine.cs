@@ -16,5 +16,10 @@ public class BossStateMachine : EnemyStateMachine
 
         bossFightManager = GameObject.Find("LevelManager").GetComponent<BossFightManager>();
     }
+
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
+    }
 }
 

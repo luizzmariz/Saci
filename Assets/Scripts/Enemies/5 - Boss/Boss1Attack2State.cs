@@ -18,7 +18,7 @@ public class Boss1Attack2State : BaseState
 
     public override void Enter() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.velocity = enemyStateMachine.movementVector;
 
         // enemyStateMachine.canMove = false;
         //enemyStateMachine.canDoAttack2 = false;
@@ -63,10 +63,11 @@ public class Boss1Attack2State : BaseState
     {
         if(!hasAttacked)
         {
-            enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack2);
+            //enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack2);
             enemyStateMachine.animator.SetTrigger("Attack1");
 
             attackIndex++;
+            hasAttacked = true;
         }
         
 
@@ -86,6 +87,7 @@ public class Boss1Attack2State : BaseState
 
     public override void Exit() 
     {
+        enemyStateMachine.rigidBody.velocity = Vector3.zero;
         enemyStateMachine.enemyAbilityHolder.EndAbility(enemyStateMachine.attack2);
 
         if(attackIndex >= 3)
@@ -93,6 +95,7 @@ public class Boss1Attack2State : BaseState
             attackIndex = 0;
             enemyStateMachine.isPerformingAttack2 = false;
         }
+
         //enemyStateMachine.canMove = true;
         // hasAttacked = false;
         // enemyStateMachine.StartCoroutine(enemyStateMachine.Cooldown("attack2"));

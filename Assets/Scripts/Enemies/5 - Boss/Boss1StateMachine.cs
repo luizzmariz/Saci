@@ -59,10 +59,24 @@ public class Boss1StateMachine : BossStateMachine
 
         canDoAttack1 = true;
         canDoAttack2 = true;
+
+        Debug.Log("Teste");
     }
 
     protected override BaseState GetInitialState() {
         return idleState;
+    }
+
+    public override void ChangeToAttackState(Ability ability)
+    {
+        if(ability == attack1)
+        {
+            ChangeState(attack1State);
+        }
+        else if(ability == attack2)
+        {
+            ChangeState(attack2State);
+        }
     }
 
     // public override IEnumerator Cooldown(string ability)
@@ -88,13 +102,21 @@ public class Boss1StateMachine : BossStateMachine
     //     }
     // }
 
-    // private void OnGUI()
-    // {
-    //     GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
-    //     string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
-    //     GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
-    //     GUILayout.EndArea();
-    // }
+    public void PushRug()
+    {
+        if(!isAttacking)
+        {
+            ChangeState(deadState);
+        }
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(250, 125, 200f, 150f));
+        string content = currentState != null ? "Boss: " + currentState.name : "Boss: " + "(no current state)";
+        GUILayout.Label($"<color='red'><size=40>{content}</size></color>");
+        GUILayout.EndArea();
+    }
 
     void OnDrawGizmosSelected()
     {

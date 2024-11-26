@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: EnemyMeleeAttack2
   m_EditorClassIdentifier: 
   name: SwipeAttack
-  cooldownTime: 3
+  cooldownTime: 4
   icon: {fileID: 0}
-  state: 1
+  state: 2
   meleeBase: {fileID: 0}
   attacks:
   - damage: 8
     attackSpawnOffset: 1.7
     radius: 0.5
     moveCharacter: 1
-    moveSpeed: 2.2
-    timeInSecondsBeforeNextAttack: 0.8
+    moveSpeed: 2.5
+    timeInSecondsBeforeNextAttack: 0.6
   - damage: 8
     attackSpawnOffset: 1.7
     radius: 0.5
     moveCharacter: 1
-    moveSpeed: 2.2
-    timeInSecondsBeforeNextAttack: 0.8
+    moveSpeed: 2.5
+    timeInSecondsBeforeNextAttack: 0.6
   - damage: 12
     attackSpawnOffset: 1.7
     radius: 0.5
     moveCharacter: 1
-    moveSpeed: 1.6
-    timeInSecondsBeforeNextAttack: 1
+    moveSpeed: 1.8
+    timeInSecondsBeforeNextAttack: 0.8

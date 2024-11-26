@@ -33,24 +33,28 @@ public class Boss1IdleState : BaseState
     public void ChooseNextAttack(Vector3 holderPosition, Vector3 playerPosition)
     {
         //enemyStateMachine.characterOrientation.ChangeOrientation(playerPosition);
+        
         if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack1Range && !enemyStateMachine.isPerformingAttack2)
         {
             if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack1))
             {
-                stateMachine.ChangeState(enemyStateMachine.attack1State);
+                enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack1);
+                //stateMachine.ChangeState(enemyStateMachine.attack1State);
             }
-            else if(enemyStateMachine.canDoAttack2)
+            else if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack2))
             {
-                stateMachine.ChangeState(enemyStateMachine.attack2State);
+                enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack2);
+                //stateMachine.ChangeState(enemyStateMachine.attack2State);
             }
         }
         else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack2Range)
         {
-            if(enemyStateMachine.canDoAttack2)
+            if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack2))
             {
-                stateMachine.ChangeState(enemyStateMachine.attack2State);
+                enemyStateMachine.enemyAbilityHolder.UseAbility(enemyStateMachine.attack2);
+                //stateMachine.ChangeState(enemyStateMachine.attack2State);
             }
-            else if(enemyStateMachine.canDoAttack1)
+            else
             {
                 stateMachine.ChangeState(enemyStateMachine.chaseState);
             }
@@ -59,6 +63,36 @@ public class Boss1IdleState : BaseState
         {
             stateMachine.ChangeState(enemyStateMachine.chaseState);
         }
+
+        // if(enemyStateMachine.isPerformingAttack2)
+        // {
+            
+        // }
+        // else
+        // {
+        //     if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack1Range)
+        //     {
+        //         if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack1))
+        //         {
+        //             stateMachine.ChangeState(enemyStateMachine.attack1State);
+        //         }
+        //         else if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack2))
+        //         {
+        //             stateMachine.ChangeState(enemyStateMachine.attack2State);
+        //         }
+        //     }
+        //     else if(Vector3.Distance(holderPosition, playerPosition) <= enemyStateMachine.attack2Range)
+        //     {
+        //         if(enemyStateMachine.enemyAbilityHolder.CheckIfCanUseAbility(enemyStateMachine.attack2))
+        //         {
+        //             stateMachine.ChangeState(enemyStateMachine.attack2State);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         stateMachine.ChangeState(enemyStateMachine.chaseState);
+        //     }
+        // }
     }
 
     public override void UpdatePhysics() {

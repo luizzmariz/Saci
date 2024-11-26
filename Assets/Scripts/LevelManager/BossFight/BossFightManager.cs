@@ -114,6 +114,7 @@ public class BossFightManager : MonoBehaviour
                     Quaternion.identity, 
                     this.transform);
 
+        
         currentBossStateMachine = bossSpawned.GetComponent<BossStateMachine>();
 
         StartCoroutine(canvaManager.EndAreaTransitionAnimation(SetBossFightIntro));

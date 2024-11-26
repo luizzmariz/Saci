@@ -5271,9 +5271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelEvents:
-  - {fileID: 11400000, guid: e4832b5343c56474aaa06c962cafcda5, type: 2}
   - {fileID: 11400000, guid: 7a600d32a3b82814eac1a69a560e9e3f, type: 2}
   - {fileID: 11400000, guid: edb48adc71d5ce640b42d45fc7651f64, type: 2}
+  - {fileID: 11400000, guid: e4832b5343c56474aaa06c962cafcda5, type: 2}
   timeBetweenEventsInSeconds: 1.75
   bossFightManager: {fileID: 0}
   waveSpawner: {fileID: 0}
@@ -5972,6 +5972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 753068426}
   - component: {fileID: 753068427}
+  - component: {fileID: 753068428}
   m_Layer: 0
   m_Name: FloorRug (1)
   m_TagString: Untagged
@@ -6016,6 +6017,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 14}
   m_Center: {x: 0, y: 0, z: 7}
+--- !u!114 &753068428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753068425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbfc2e370233d04faad68914aef9a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &787310844
 GameObject:
   m_ObjectHideFlags: 0
@@ -13648,6 +13661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1690265741}
   - component: {fileID: 1690265742}
+  - component: {fileID: 1690265743}
   m_Layer: 0
   m_Name: FloorRug
   m_TagString: Untagged
@@ -13692,6 +13706,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 14}
   m_Center: {x: 0, y: 0, z: 7}
+--- !u!114 &1690265743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690265740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbfc2e370233d04faad68914aef9a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1695084539
 GameObject:
   m_ObjectHideFlags: 0
@@ -13919,7 +13945,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab154fb7dd0cca6468401f9cda603896, type: 2}
+  - {fileID: 2100000, guid: af3399db7558f7540a637f1dc6aefda1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14656,6 +14682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1853697803}
   - component: {fileID: 1853697804}
+  - component: {fileID: 1853697805}
   m_Layer: 0
   m_Name: FloorRug (2)
   m_TagString: Untagged
@@ -14700,6 +14727,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 14}
   m_Center: {x: 0, y: 0, z: 7}
+--- !u!114 &1853697805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853697802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbfc2e370233d04faad68914aef9a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1873629355
 GameObject:
   m_ObjectHideFlags: 0
@@ -14794,6 +14833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1898638289}
   - component: {fileID: 1898638290}
+  - component: {fileID: 1898638291}
   m_Layer: 0
   m_Name: FloorRug (3)
   m_TagString: Untagged
@@ -14838,6 +14878,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 14}
   m_Center: {x: 0, y: 0, z: 7}
+--- !u!114 &1898638291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898638288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbfc2e370233d04faad68914aef9a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1915050736
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class EnemyStateMachine : StateMachine
 
     [Header("Attributes")]
     [Range(0f, 10f)] public float movementSpeed;
+    [HideInInspector] public Vector3 movementVector;
 
     [Header("Damage")]
     public float knockbackDuration;
@@ -50,10 +51,14 @@ public class EnemyStateMachine : StateMachine
         
     }
 
-    public void AttackEnd()
+    public virtual void AttackEnd()
     {
         isAttacking = false;
-        enemyHands.AttackEnd();
+    }
+
+    public virtual void ChangeToAttackState(Ability ability)
+    {
+
     }
 }
 

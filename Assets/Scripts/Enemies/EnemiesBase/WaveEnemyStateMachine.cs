@@ -28,5 +28,11 @@ public class WaveEnemyStateMachine : EnemyStateMachine
         canAttack = true;
         canMove = true;
     }
+
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
+        enemyHands.AttackEnd();
+    }
 }
 

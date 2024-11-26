@@ -8,6 +8,7 @@ public class EnemyMeleeAttack : EnemyAbility
 {
     [Header("Enemy Melee Attack Statistics")]
     [SerializeField] GameObject meleeBase;
+    [HideInInspector] Vector3 meleeBaseLocalPosition;
     [SerializeField] List<MeleeAttack> attacks;
 
     int attacksDealt = 0; 
@@ -38,6 +39,7 @@ public class EnemyMeleeAttack : EnemyAbility
         if(meleeBase == null)
         {
             meleeBase = enemy.transform.Find("Hands").GetChild(0).gameObject;
+            meleeBaseLocalPosition = meleeBase.transform.localPosition;
         }
     }
 
@@ -49,19 +51,21 @@ public class EnemyMeleeAttack : EnemyAbility
 
     public void StartAttack()
     {
-        //Debug.Log(attacksDealt);
         meleeBase.SetActive(true);
         attacksDealt++;
+
+        enemyStateMachine.ChangeToAttackState(this);
     }
 
     void SetAttackProperties(Vector3 targetPoint)
     {
         Attack actualAttack = meleeBase.GetComponent<Attack>();
+        meleeBaseLocalPosition = meleeBase.transform.localPosition;
 
         MeleeAttack currentAttackInformation = attacks[attacksDealt];
 
         //attack spawn offset
-        meleeBase.transform.position = new Vector3(0,0,-currentAttackInformation.attackSpawnOffset);
+        meleeBase.transform.localPosition = new Vector3(meleeBaseLocalPosition.x, meleeBaseLocalPosition.y, meleeBaseLocalPosition.z -currentAttackInformation.attackSpawnOffset);
 
         //attack damage
         actualAttack.damageAmount = currentAttackInformation.damage;
@@ -71,7 +75,7 @@ public class EnemyMeleeAttack : EnemyAbility
         
         //attack movement
         Vector3 movementDirection = targetPoint - enemy.transform.position;
-        enemyStateMachine.GetComponent<Rigidbody>().velocity = movementDirection.normalized * currentAttackInformation.moveSpeed;
+        enemyStateMachine.movementVector = movementDirection.normalized * currentAttackInformation.moveSpeed;
     }
 
     void ChangeEnemyOrientation(Vector3 targetPoint)
@@ -81,7 +85,9 @@ public class EnemyMeleeAttack : EnemyAbility
 
     public override void Deactivate()
     {
-        Debug.Log(name + " - attacksDealt: " + attacksDealt + ", attacks.Count: " + attacks.Count);
+        meleeBase.SetActive(false);
+        meleeBase.transform.localPosition = meleeBaseLocalPosition;
+
         if(attacksDealt < attacks.Count)
         {
             if(nextAttackCooldown == null)
@@ -96,7 +102,6 @@ public class EnemyMeleeAttack : EnemyAbility
         }
         else
         {
-            Debug.Log("started cooldown coroutine?");
             attacksDealt = 0;
             enemyStateMachine.StartCoroutine(enemy.GetComponent<EnemyAbilityHolder>().Cooldown(this));
         }
@@ -106,6 +111,7 @@ public class EnemyMeleeAttack : EnemyAbility
     {
         yield return new WaitForSeconds(attacks[attacksDealt-1].timeInSecondsBeforeNextAttack);
 
+        nextAttackCooldown = null;
         Activate();
     }
 
