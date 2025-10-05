@@ -33,7 +33,7 @@ public class EnemyAttack : Attack
             {
                 Destroy(gameObject);
             }
-            collider.GetComponent<PlayerDamageable>().Damage(damageAmount, transform.position - (Vector3)GetComponent<Rigidbody>().velocity * 1.5f);
+            collider.GetComponent<PlayerDamageable>().Damage(damageAmount, transform.position - (Vector3)GetComponent<Rigidbody>().linearVelocity * 1.5f);
         }
         else
         {

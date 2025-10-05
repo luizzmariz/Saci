@@ -41,7 +41,7 @@ public class Enemy2IdleState : BaseState
     }
 
     public override void UpdatePhysics() {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
     }
 
     public override void Exit() 

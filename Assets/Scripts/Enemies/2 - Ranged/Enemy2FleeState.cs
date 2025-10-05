@@ -115,12 +115,12 @@ public class Enemy2FleeState : BaseState
         enemyStateMachine.characterOrientation.ChangeOrientation(currentWaypoint);
 
         Vector3 movementDirection = currentWaypoint - holderPosition;
-        enemyStateMachine.rigidBody.velocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
+        enemyStateMachine.rigidBody.linearVelocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
 	}
 
     public override void Exit() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         enemyStateMachine.canFlee = false;
         enemyStateMachine.StartCoroutine(enemyStateMachine.Cooldown("flee"));
         

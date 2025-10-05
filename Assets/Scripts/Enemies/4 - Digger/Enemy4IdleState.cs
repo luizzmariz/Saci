@@ -46,7 +46,7 @@ public class Enemy4IdleState : BaseState
 
     public override void UpdatePhysics()
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         
         holderPosition = enemyStateMachine.transform.position;
         playerPosition = enemyStateMachine.playerGameObject.transform.position;

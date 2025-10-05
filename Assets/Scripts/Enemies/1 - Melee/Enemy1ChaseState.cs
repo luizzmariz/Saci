@@ -94,7 +94,7 @@ public class Enemy1ChaseState : BaseState
             }
             else
             {
-                enemyStateMachine.rigidBody.velocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
+                enemyStateMachine.rigidBody.linearVelocity = (playerPosition - holderPosition).normalized * enemyStateMachine.movementSpeed;
             }
         }
     }
@@ -137,12 +137,12 @@ public class Enemy1ChaseState : BaseState
         }
 
         Vector3 movementDirection = currentWaypoint - holderPosition;
-        enemyStateMachine.rigidBody.velocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
+        enemyStateMachine.rigidBody.linearVelocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
 	}
 
     public override void Exit() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         followingPath = false;
         path = null;
     }

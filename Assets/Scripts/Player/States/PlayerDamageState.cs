@@ -65,7 +65,7 @@ public class PlayerDamageState : BaseState
 
     public IEnumerator Knockback()
     {
-        playerStateMachine.rigidBody.velocity = Vector3.zero;
+        playerStateMachine.rigidBody.linearVelocity = Vector3.zero;
         // playerStateMachine.rigidBody.AddForce(playerStateMachine.knockbackVector, ForceMode2D.Impulse);
         playerStateMachine.rigidBody.AddForce(playerStateMachine.knockbackVector, ForceMode.Impulse);
         playerStateMachine.bodySpriteRenderer.color = new Color(1, 1, 1, 0.5f);
@@ -76,7 +76,7 @@ public class PlayerDamageState : BaseState
         playerStateMachine.bodySpriteRenderer.color = new Color(1, 1, 1, 1f);
          playerStateMachine.handsSpriteRenderer.color = new Color(1, 1, 1, 1f);
 
-        playerStateMachine.rigidBody.velocity = Vector3.zero;
+        playerStateMachine.rigidBody.linearVelocity = Vector3.zero;
         playerStateMachine.beingPushed = false;
     }
 

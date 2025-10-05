@@ -17,7 +17,7 @@ public class PlayerAttackState : BaseState
     }
 
     public override void Enter() {
-        playerStateMachine.rigidBody.velocity = Vector3.zero;
+        playerStateMachine.rigidBody.linearVelocity = Vector3.zero;
         couldMove = false;
         couldFire = false;
         couldDash = false;

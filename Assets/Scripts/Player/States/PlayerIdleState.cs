@@ -30,7 +30,7 @@ public class PlayerIdleState : BaseState
     }
 
     public override void UpdatePhysics() {
-        playerStateMachine.rigidBody.velocity = Vector3.zero;
+        playerStateMachine.rigidBody.linearVelocity = Vector3.zero;
         
         if(playerStateMachine.isAiming)
         {

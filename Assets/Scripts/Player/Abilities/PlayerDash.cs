@@ -27,12 +27,12 @@ public class PlayerDash : PlayerAbility
     public IEnumerator Dash(Vector3 dashDirection)
     {
         // playerStateMachine.trailRenderer.emitting = true;
-        player.GetComponent<Rigidbody>().velocity = dashDirection.normalized * dashingPower;
+        player.GetComponent<Rigidbody>().linearVelocity = dashDirection.normalized * dashingPower;
 
         yield return new WaitForSeconds(dashingTime);
 
         // playerStateMachine.trailRenderer.emitting = false;
-        playerStateMachine.rigidBody.velocity = Vector3.zero;
+        playerStateMachine.rigidBody.linearVelocity = Vector3.zero;
         
         ContactStateMachine();
     }

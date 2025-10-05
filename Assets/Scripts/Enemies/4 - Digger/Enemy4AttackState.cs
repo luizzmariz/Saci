@@ -18,7 +18,7 @@ public class Enemy4AttackState : BaseState
 
     public override void Enter() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
 
         enemyStateMachine.canMove = false;
         enemyStateMachine.canAttack = false;

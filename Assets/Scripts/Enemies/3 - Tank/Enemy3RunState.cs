@@ -90,7 +90,7 @@ public class Enemy3RunState : BaseState
             {
                 //Debug.Log("SCENARIO COLLIDED");
                 enemyStateMachine.StopCoroutine(run);
-                enemyStateMachine.rigidBody.velocity = Vector3.zero;
+                enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
                 hasStartedRunning = false;
                 isRunning = false;
             }
@@ -108,7 +108,7 @@ public class Enemy3RunState : BaseState
                         {
                             collider.GetComponent<PlayerDamageable>().Damage(enemyStateMachine.runDamage, enemyStateMachine.transform.position);
                             enemyStateMachine.StopCoroutine(run);
-                            enemyStateMachine.rigidBody.velocity = Vector3.zero;
+                            enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
                             hasStartedRunning = false;
                             isRunning = false;
                         }
@@ -130,14 +130,14 @@ public class Enemy3RunState : BaseState
         playerPosition = enemyStateMachine.playerGameObject.transform.position;
 
         Vector3 runVector = (playerPosition - holderPosition).normalized;
-        enemyStateMachine.rigidBody.velocity = runVector * enemyStateMachine.runSpeed;
+        enemyStateMachine.rigidBody.linearVelocity = runVector * enemyStateMachine.runSpeed;
     }
 
     IEnumerator RunTimer()
     {
         yield return new WaitForSeconds(enemyStateMachine.maxRunDuration);
         //enemyStateMachine.animator;
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         hasStartedRunning = false;
         isRunning = false;
     }
@@ -146,7 +146,7 @@ public class Enemy3RunState : BaseState
     {
         //enemyStateMachine.runCollider.enabled = false;
         enemyStateMachine.runSprite.enabled = false;
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         enemyStateMachine.enemyDamageable.damageable = true;
         enemyStateMachine.canRun = false;
         usedDamageableCollider = null;

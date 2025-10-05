@@ -66,7 +66,7 @@ public class Enemy4DigState : BaseState
             playerPosition = enemyStateMachine.playerGameObject.transform.position;
 
             Vector3 digDirection = (playerPosition - holderPosition).normalized;
-            enemyStateMachine.rigidBody.velocity = digDirection * enemyStateMachine.digSpeed;
+            enemyStateMachine.rigidBody.linearVelocity = digDirection * enemyStateMachine.digSpeed;
 
             colliders = Physics.OverlapSphere(enemyStateMachine.transform.position, 0.5f, LayerMask.GetMask("Collision"));
 
@@ -80,7 +80,7 @@ public class Enemy4DigState : BaseState
             }
             else if(colliders.Count() > 0)
             {
-                enemyStateMachine.rigidBody.velocity = Vector2.zero;
+                enemyStateMachine.rigidBody.linearVelocity = Vector2.zero;
                 enemyStateMachine.StopCoroutine(dig);
                 digWentWrong = true;
                 enemyStateMachine.StartCoroutine(DigOut());
@@ -124,12 +124,12 @@ public class Enemy4DigState : BaseState
 
         isDigging = false;
         enemyStateMachine.enemyDamageable.damageable = true;
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
     }
 
     public override void Exit() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         enemyStateMachine.enemyDamageable.damageable = true;
         enemyStateMachine.canDig = false;
         enemyStateMachine.StartCoroutine(enemyStateMachine.Cooldown("dig"));

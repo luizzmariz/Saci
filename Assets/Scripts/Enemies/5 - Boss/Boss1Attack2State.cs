@@ -18,7 +18,7 @@ public class Boss1Attack2State : BaseState
 
     public override void Enter() 
     {
-        enemyStateMachine.rigidBody.velocity = enemyStateMachine.movementVector;
+        enemyStateMachine.rigidBody.linearVelocity = enemyStateMachine.movementVector;
 
         // enemyStateMachine.canMove = false;
         //enemyStateMachine.canDoAttack2 = false;
@@ -87,7 +87,7 @@ public class Boss1Attack2State : BaseState
 
     public override void Exit() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         enemyStateMachine.enemyAbilityHolder.EndAbility(enemyStateMachine.attack2);
 
         if(attackIndex >= 3)

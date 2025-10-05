@@ -58,7 +58,7 @@ public class Boss1DamageState : BaseState
     {
         Color previousColor =  enemyStateMachine.bodySpriteRenderer.color;
 
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         enemyStateMachine.rigidBody.AddForce(enemyStateMachine.knockbackVector * enemyStateMachine.knockbackPower, ForceMode.Impulse);
 
         enemyStateMachine.bodySpriteRenderer.color = new Color(previousColor.r, previousColor.g, previousColor.b, 0.5f);
@@ -69,7 +69,7 @@ public class Boss1DamageState : BaseState
         enemyStateMachine.bodySpriteRenderer.color = previousColor;
         enemyStateMachine.handsSpriteRenderer.color = previousColor;
 
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         enemyStateMachine.beingPushed = false;
     }
 

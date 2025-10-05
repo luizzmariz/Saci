@@ -81,12 +81,12 @@ public class BossFightManager : MonoBehaviour
         while(Vector3.Distance(player.transform.position, PlayerPositionToTransition) > 0.75f)
         {
             Vector3 moveVector = PlayerPositionToTransition - player.transform.position;
-            player.GetComponent<Rigidbody>().velocity = moveVector.normalized * player.GetComponent<PlayerStateMachine>().movementSpeed;
+            player.GetComponent<Rigidbody>().linearVelocity = moveVector.normalized * player.GetComponent<PlayerStateMachine>().movementSpeed;
             
             yield return new WaitForFixedUpdate();
         }
         
-        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         player.GetComponent<CharacterOrientation>().ChangeOrientation(player.transform.position + Vector3.forward);
 
         switch(gateType)

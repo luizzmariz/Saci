@@ -26,7 +26,7 @@ public class PlayerMoveState : BaseState
 
         if(moveVector == Vector3.zero || playerStateMachine.isAiming)
         {
-            playerStateMachine.rigidBody.velocity = Vector3.zero;
+            playerStateMachine.rigidBody.linearVelocity = Vector3.zero;
             // playerStateMachine.animator.SetBool("isMoving", false);
             playerStateMachine.ChangeState(playerStateMachine.idleState);
         }
@@ -50,7 +50,7 @@ public class PlayerMoveState : BaseState
         // }
         // else
         // {
-            playerStateMachine.rigidBody.velocity = moveVector.normalized * playerStateMachine.movementSpeed;
+            playerStateMachine.rigidBody.linearVelocity = moveVector.normalized * playerStateMachine.movementSpeed;
         // }
     }
 

@@ -163,12 +163,12 @@ public class Boss1ChaseState : BaseState
         }
 
         Vector3 movementDirection = currentWaypoint - holderPosition;
-        enemyStateMachine.rigidBody.velocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
+        enemyStateMachine.rigidBody.linearVelocity = movementDirection.normalized * enemyStateMachine.movementSpeed;
 	}
 
     public override void Exit() 
     {
-        enemyStateMachine.rigidBody.velocity = Vector3.zero;
+        enemyStateMachine.rigidBody.linearVelocity = Vector3.zero;
         followingPath = false;
         path = null;
     }
