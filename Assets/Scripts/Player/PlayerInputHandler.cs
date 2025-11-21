@@ -6,6 +6,7 @@ public class PlayerInputHandler : MonoBehaviour
     #region Components 
     PlayerStateMachine playerStateMachine;
     PlayerAbilityHolder playerAbilityHolder;
+    PlayerInteract playerInteract;
     CharacterOrientation playerOrientation;
 
     [HideInInspector] public PlayerInput playerInput;
@@ -39,9 +40,13 @@ public class PlayerInputHandler : MonoBehaviour
         {
             playerInput = GetComponent<PlayerInput>();
         }
-        if(playerOrientation == null)
+        if (playerOrientation == null)
         {
             playerOrientation = GetComponent<CharacterOrientation>();
+        }
+        if (playerInteract == null)
+        {
+            playerInteract = GetComponent<PlayerInteract>();
         }
     }
 
@@ -124,14 +129,37 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if(context.performed && playerAbilityHolder.dash != null)
+        if (context.performed && playerAbilityHolder.dash != null)
         {
-            if(playerAbilityHolder.CheckIfCanUseAbility(playerAbilityHolder.dash))
+            if (playerAbilityHolder.CheckIfCanUseAbility(playerAbilityHolder.dash))
             {
-                 playerStateMachine.ChangeToDashState();
+                playerStateMachine.ChangeToDashState();
                 playerAbilityHolder.UseAbility(playerAbilityHolder.dash);
             }
         }
     }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            if(playerInteract.canInteract)
+            {
+                playerInteract.StartInteraction();
+            }
+        }
+    }
+
+    // public void OnEnter(InputAction.CallbackContext context)
+    // {
+    //     if(context.performed)
+    //     {
+    //         //Debug.Log("OnEnter");
+    //         if(dialogueManager.animator.GetBool("DialogueBoxIsOpen"))
+    //         {
+    //             dialogueManager.DisplayNextSentence();
+    //         }
+    //     }
+    // }
     #endregion
 }

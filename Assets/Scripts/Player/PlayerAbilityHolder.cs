@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerAbilityHolder : MonoBehaviour
 {
     #region Components 
-    PlayerStateMachine playerStateMachine;
-    PlayerAbilityIcons playerAbilityIcons;
+    [SerializeField] PlayerStateMachine playerStateMachine;
+    [SerializeField] PlayerAbilityIcons playerAbilityIcons;
     #endregion
 
     public Ability meleeAttack;
@@ -28,7 +28,7 @@ public class PlayerAbilityHolder : MonoBehaviour
         }
         if(playerAbilityIcons == null)
         {
-            playerAbilityIcons = GameObject.Find("Canvas").transform.Find("AbilityIcons").GetComponent<PlayerAbilityIcons>();
+            playerAbilityIcons = GameObject.Find("Canvas").transform.Find("HUD").Find("AbilityIcons").GetComponent<PlayerAbilityIcons>();
         }
     }
 

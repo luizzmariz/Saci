@@ -7,7 +7,7 @@ using TMPro;
 public class DialogueManager : MonoBehaviour {
 
 	[Header("Dialogue Manager")]
-	public static DialogueManager instance = null;
+	[HideInInspector] public static DialogueManager instance = null;
 	public Animator animator;
 
 
@@ -21,14 +21,19 @@ public class DialogueManager : MonoBehaviour {
 	private Queue<string> sentences;
     private string currentSentence;
     public float typingSpeed;
-    public bool isTyping;
+	public bool isTyping;
 	
+	void OnEnable()
+	{
 
-	[Header("Player")]
-	public GameObject player;
-	public PlayerStateMachine playerStateMachine;
+	}
 
-	void Start() {
+    void OnDisable()
+    {
+        
+    }
+
+    void Start() {
 		if (instance == null) {
 			instance = this;
 		} else if (instance != this) {
@@ -36,13 +41,11 @@ public class DialogueManager : MonoBehaviour {
 		}
 
 		sentences = new Queue<string>();
-		player = GameObject.Find("Player");
-		playerStateMachine = player.GetComponent<PlayerStateMachine>();
+
 	}
 
 	public void StartDialogue(string speakerName, string[] dialogue, Sprite speakerSprite)
 	{	
-		// playerStateMachine.ChangeState(playerStateMachine.interactState);
 		animator.SetBool("DialogueBoxIsOpen", true);
 
 		nameText.text = speakerName;
