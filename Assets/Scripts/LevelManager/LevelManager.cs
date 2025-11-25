@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public BossFightManager bossFightManager;
 
     [Header("Wave System")]
+    [SerializeField] Grid3D grid;
     [HideInInspector] public WaveSpawner waveSpawner;
 
     [Header("Encounter System")]
@@ -28,15 +29,11 @@ public class LevelManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] InputAction unlockExtraBossFight;
     [SerializeField] InputAction testStart;
-    [SerializeField] BossFight extraBossFight;
     bool levelStarted = false;
 
     void Awake()
     {
         GetComponents();
-
-        unlockExtraBossFight.Enable();
-        unlockExtraBossFight.performed += context => UnlockExtraBossFight();
     }
 
     private void OnEnable()
@@ -75,10 +72,15 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void StartGrid()
     {
-        LoadAllLevelEvents();
+        grid.StartGrid();
     }
+
+    // void Start()
+    // {
+    //     LoadAllLevelEvents();
+    // }
 
     void LoadAllLevelEvents()
     {
@@ -92,6 +94,7 @@ public class LevelManager : MonoBehaviour
     {
         if(!levelStarted)
         {
+            StartGrid();
             StartCoroutine(StartNextLevelEvent(0));
             levelStarted = true;
         }
@@ -185,16 +188,6 @@ public class LevelManager : MonoBehaviour
         else
         {
             Debug.Log("Game end, there is no Game Manager to proceed");
-        }
-    }
-
-    //Debug functions below
-
-    void UnlockExtraBossFight()
-    {
-        if(extraBossFight != null)
-        {
-            bossFightManager.UnlockBossFight(extraBossFight);
         }
     }
 }

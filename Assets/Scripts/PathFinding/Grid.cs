@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Grid3D : MonoBehaviour {
 
+	public bool startsOnAwake;
+	bool gridStarted;
 	public bool displayGridGizmos;
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
@@ -12,12 +14,26 @@ public class Grid3D : MonoBehaviour {
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
 
-	void Awake() {
-		nodeDiameter = nodeRadius*2;
-		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
-		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
-		CreateGrid();
-	}
+    void Awake()
+    {
+        if(startsOnAwake)
+        {
+			gridStarted = true;
+            StartGrid();
+        }
+    }
+
+    public void StartGrid()
+    {
+		if(!gridStarted)
+        {  
+			gridStarted = true;
+			nodeDiameter = nodeRadius*2;
+			gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
+			gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
+			CreateGrid();
+        }
+    }
 
 	public int MaxSize {
 		get {

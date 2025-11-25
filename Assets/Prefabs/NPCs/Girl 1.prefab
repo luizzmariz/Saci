@@ -80,6 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8503899922064751010}
   - component: {fileID: 8123930636339589251}
+  - component: {fileID: 7756892293918390491}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -111,7 +112,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4590423902295280950}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -126,7 +127,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1b110a686940b614abc9ce71a9d07db7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,6 +159,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7756892293918390491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590423902295280950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbb1a4cb1e38244c94a53779926265d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7447518069166848601
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3864770034731466433}
   - component: {fileID: 8279132898537415542}
+  - component: {fileID: 705490627876496372}
   m_Layer: 0
   m_Name: HandsVisual
   m_TagString: Untagged
@@ -198,7 +212,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7447518069166848601}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -213,7 +227,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1b110a686940b614abc9ce71a9d07db7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -245,6 +259,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &705490627876496372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7447518069166848601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbb1a4cb1e38244c94a53779926265d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7945615130428140987
 GameObject:
   m_ObjectHideFlags: 0

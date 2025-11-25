@@ -12,6 +12,8 @@ public class CollisionVisibility : MonoBehaviour
     {
         playerTransform = GameObject.Find("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        spriteRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
     }
 
     // Update is called once per frame
