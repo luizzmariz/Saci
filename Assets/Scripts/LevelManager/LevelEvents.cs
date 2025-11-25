@@ -8,6 +8,7 @@ public class LevelEvent : ScriptableObject
     {
         WAVE,
         BOSSFIGHT,
+        ENCOUNTER,
         OTHER
     }
 

@@ -145,7 +145,7 @@ public class PlayerInputHandler : MonoBehaviour
         {
             if(playerInteract.canInteract)
             {
-                playerInteract.StartInteraction();
+                playerInteract.Interact();
             }
         }
     }

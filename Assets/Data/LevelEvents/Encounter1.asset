@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5a070b093854442aef0b3b566e6e1a, type: 3}
+  m_Name: Encounter1
+  m_EditorClassIdentifier: 
+  npcs:
+  - npcPrefab: {fileID: 6493082385609965691, guid: 26850644a05e61d45830a0bfc6bfbb69, type: 3}
+    npcPosition: {x: -7.77, y: 0, z: 1.72}
+  - npcPrefab: {fileID: 1432920532025477348, guid: 08f9cd90f13e1e7429ff38d5b2c126de, type: 3}
+    npcPosition: {x: -8.93, y: 0, z: 1.72}
+  - npcPrefab: {fileID: 7945615130428140987, guid: 2c1fea06e87a4894da80a9b730dff050, type: 3}
+    npcPosition: {x: 5.74, y: 0, z: 0.75}
+  encounterTriggerPosition: {x: 0, y: 0, z: 0}
+  encounterTriggerRadius: 0

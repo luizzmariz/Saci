@@ -59,7 +59,8 @@ public class CameraFocus : MonoBehaviour
         {
             for(float x = 0.3f; x <= 1f; x += 0.01f)
             {
-                collider.transform.GetComponentInChildren<SpriteRenderer>().color = new Color(x,x,x,x);
+                Color oldColor = collider.transform.GetComponentInChildren<SpriteRenderer>().color;
+                collider.transform.GetComponentInChildren<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,x);
                 yield return new WaitForSeconds(opacityChangeTime);
             }
         }
@@ -67,7 +68,8 @@ public class CameraFocus : MonoBehaviour
         {
             for(float x = 1f; x >= 0.3f; x -= 0.01f)
             {
-                collider.transform.GetComponentInChildren<SpriteRenderer>().color = new Color(x,x,x,x);
+                Color oldColor = collider.transform.GetComponentInChildren<SpriteRenderer>().color;
+                collider.transform.GetComponentInChildren<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,x);
                 yield return new WaitForSeconds(opacityChangeTime);
             }
         }

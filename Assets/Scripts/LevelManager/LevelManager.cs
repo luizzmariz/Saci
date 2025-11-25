@@ -16,6 +16,9 @@ public class LevelManager : MonoBehaviour
     [Header("Wave System")]
     [HideInInspector] public WaveSpawner waveSpawner;
 
+    [Header("Encounter System")]
+    [HideInInspector] public EncounterManager encounterManager;
+
     [Header("Player")]
     [HideInInspector] public PlayerDamageable playerDamageable;
 
@@ -61,6 +64,10 @@ public class LevelManager : MonoBehaviour
         if(bossFightManager == null)
         {
             bossFightManager = GetComponent<BossFightManager>();
+        }
+        if(encounterManager == null)
+        {
+            encounterManager = GetComponent<EncounterManager>();
         }
         if(canvaManager == null)
         {
@@ -114,6 +121,12 @@ public class LevelManager : MonoBehaviour
                 yield return new WaitForSeconds(timeBetweenEventsInSeconds);
 
                 bossFightManager.UnlockBossFight((BossFight)currentlevelEvent);
+            break;
+
+            case LevelEvent.levelEventType.ENCOUNTER:
+                yield return new WaitForSeconds(timeBetweenEventsInSeconds);
+
+                encounterManager.SetEncounter((Encounter)currentlevelEvent);
             break;
 
             case LevelEvent.levelEventType.OTHER:

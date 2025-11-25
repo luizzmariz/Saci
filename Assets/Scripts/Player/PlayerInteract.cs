@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.InputSystem;
 using System;
 
@@ -17,6 +16,40 @@ public class PlayerInteract : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool debugInfo;
 
+    void OnEnable()
+    {
+        Subscribe();
+    }
+
+    private void OnDisable()
+    {
+        Unsubscribe();
+    }
+
+    private void Subscribe()
+    {
+        DialogueManager.DialogueWindowChanged += ChangeInteractState;
+    }
+    
+    private void Unsubscribe()
+    {
+        DialogueManager.DialogueWindowChanged -= ChangeInteractState;
+    }
+
+    void ChangeInteractState(bool startedDialogue)
+    {
+        if(startedDialogue)
+        {
+            GetComponent<PlayerStateMachine>().ChangeToInteractState();
+            canShowInteractionText = false;
+        }
+        else
+        {
+            GetComponent<PlayerStateMachine>().InteractEnd();
+            canShowInteractionText = true;
+        }
+    }
+
     void FixedUpdate()
     {
         closestCollider = null;
@@ -32,6 +65,10 @@ public class PlayerInteract : MonoBehaviour
             {
                 SetInteractText?.Invoke(GetComponent<PlayerInput>(), null);
             }
+        }
+        else
+        {
+            SetInteractText?.Invoke(GetComponent<PlayerInput>(), null);
         }
     }
 
@@ -54,6 +91,21 @@ public class PlayerInteract : MonoBehaviour
                         closestCollider = hitCollider;
                     }
                 }
+            }
+        }
+    }
+
+    public void Interact()
+    {
+        if(!DialogueManager.instance.inTransition)
+        {
+            if(DialogueManager.instance.isHappening)
+            {
+                DialogueManager.instance.DisplayNextSentence();
+            }
+            else
+            {
+                StartInteraction();
             }
         }
     }

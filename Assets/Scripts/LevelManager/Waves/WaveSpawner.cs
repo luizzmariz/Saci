@@ -31,9 +31,18 @@ public class WaveSpawner : MonoBehaviour
     void Awake()
     {
         GetComponents();
+    }
 
+    void OnEnable()
+    {
         spawnEnemy.Enable();
         spawnEnemy.performed += context => SpawnEnemy();
+    }
+
+    void OnDisable()
+    {
+        spawnEnemy.Disable();
+        spawnEnemy.performed -= context => SpawnEnemy();
     }
 
     void GetComponents()

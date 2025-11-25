@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour {
 
 	[Header("Dialogue Manager")]
 	[HideInInspector] public static DialogueManager instance = null;
 	public Animator animator;
-
+	public static event Action<bool> DialogueWindowChanged;
+	public bool isHappening;
+	public bool inTransition;
 
 	[Header("Speaker Info")]
 	public TMP_Text nameText;
 	public TMP_Text dialogueText;
     public Image dialogueImage;
 
-
 	[Header("Dialogue Stats")]	
 	private Queue<string> sentences;
     private string currentSentence;
     public float typingSpeed;
 	public bool isTyping;
-	
-	void OnEnable()
-	{
 
-	}
+	// void OnEnable()
+	// {
 
-    void OnDisable()
-    {
+	// }
+
+    // void OnDisable()
+    // {
         
-    }
+    // }
 
     void Start() {
 		if (instance == null) {
@@ -41,15 +43,20 @@ public class DialogueManager : MonoBehaviour {
 		}
 
 		sentences = new Queue<string>();
-
 	}
 
 	public void StartDialogue(string speakerName, string[] dialogue, Sprite speakerSprite)
 	{	
-		animator.SetBool("DialogueBoxIsOpen", true);
+		DialogueWindowChanged?.Invoke(true);
+		inTransition = true;
+		isHappening = true;
+
+		animator.SetBool("dialogue", true);
 
 		nameText.text = speakerName;
         dialogueImage.sprite = speakerSprite;
+
+		dialogueText.text = "";
 
 		sentences.Clear();
 
@@ -58,7 +65,7 @@ public class DialogueManager : MonoBehaviour {
 			sentences.Enqueue(sentence);
 		}
 
-		DisplayNextSentence();
+		// DisplayNextSentence();
 	}
 
 	public void DisplayNextSentence()
@@ -112,9 +119,24 @@ public class DialogueManager : MonoBehaviour {
 
 	void EndDialogue()
 	{
-		animator.SetBool("DialogueBoxIsOpen", false);
+		DialogueWindowChanged?.Invoke(false);
+		inTransition = true;
 
-		// playerStateMachine.interactState.ExitState();
-		// LevelManager.instance.currentLevelPart.SendActionTokens();
+		animator.SetBool("dialogue", false);
 	}
+
+	public void DialogueTransitionEnd()
+    {
+        inTransition = false;
+
+		if(animator.GetBool("dialogue"))
+        {
+			DisplayNextSentence();
+        }
+		else
+        {
+			dialogueText.text = "";
+			isHappening = false;
+        }
+    }
 }

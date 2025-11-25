@@ -13,7 +13,9 @@ public class PlayerStateMachine : StateMachine
     [HideInInspector] public PlayerDashState dashState;
     [HideInInspector] public PlayerDamageState damageState;
     [HideInInspector] public PlayerDeadState deadState;
+    [HideInInspector] public PlayerInteractState interactState;
     [HideInInspector] public PlayerUncontrollableState uncontrollableState;
+    
     #endregion
     
     #region Components 
@@ -42,6 +44,10 @@ public class PlayerStateMachine : StateMachine
     {
         get => !isAttacking && !isDashing;
     }
+
+    [Header("Interact")]
+    public bool isInteracting;
+
 
     [Header("Movement")]
     public float runningMultiplier;
@@ -84,6 +90,7 @@ public class PlayerStateMachine : StateMachine
         canDash = true;
         playerDamageable.damageable = true;
         uncontrollable = false;
+        isInteracting = false;
     }
 
     void GetComponents()
@@ -109,6 +116,7 @@ public class PlayerStateMachine : StateMachine
         dashState = new PlayerDashState(this);
         damageState = new PlayerDamageState(this);
         deadState = new PlayerDeadState(this);
+        interactState = new PlayerInteractState(this);
         uncontrollableState = new PlayerUncontrollableState(this);
     }
 
@@ -166,6 +174,14 @@ public class PlayerStateMachine : StateMachine
         }
     }
 
+    public void ChangeToInteractState()
+    {
+        if(!uncontrollable && !isInteracting)
+        {
+            ChangeState(interactState);
+        }
+    }
+
     public void ChangeToAttackState()
     {
         if(!uncontrollable && CanUseAbility)
@@ -216,6 +232,11 @@ public class PlayerStateMachine : StateMachine
         // runningCoroutines.Remove(ability);
     }
 
+    public void InteractEnd()
+    {
+        isInteracting = false;
+    }
+
     public void AttackEnd()
     {
         attackdebugindex++;
@@ -227,4 +248,5 @@ public class PlayerStateMachine : StateMachine
     {
         isDashing = false;
     }
+    
 }
