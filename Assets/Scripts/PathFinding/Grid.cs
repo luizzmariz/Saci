@@ -12,13 +12,12 @@ public class Grid3D : MonoBehaviour {
 	Node[,] grid;
 
 	float nodeDiameter;
-	int gridSizeX, gridSizeY;
+	[SerializeField] int gridSizeX, gridSizeY;
 
     void Awake()
     {
         if(startsOnAwake)
         {
-			gridStarted = true;
             StartGrid();
         }
     }
@@ -223,10 +222,19 @@ public class Grid3D : MonoBehaviour {
 				int checkX = nodeX + x;
 				int checkY = nodeY + y;
 
-				if(!grid[checkX,checkY].walkable) 
-				{
-					validation = false;
-				}
+				// Debug.Log("checkX: " + checkX + ", checkY: " + checkY);
+
+				if(checkX < 0|| checkY < 0 || checkX > gridSizeX || checkY > gridSizeY)
+                {
+                    validation = false;
+                }
+				else
+                {
+					if(!grid[checkX,checkY].walkable) 
+					{
+						validation = false;
+					}
+                }
 			}
 		}
 

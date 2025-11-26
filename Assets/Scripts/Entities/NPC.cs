@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,10 +20,15 @@ public class NPC : MonoBehaviour
             if(!dialogues[relationLevel].hasBeenSpoke)
             {
                 DialogueManager.instance.StartDialogue(npcName, dialogues[relationLevel].interactionSentences, 
-                dialogues[relationLevel].dialogueSprite);
+                dialogues[relationLevel].dialogueSprite, dialogues[relationLevel].isTrigger);
 
                 dialogues[relationLevel].hasBeenSpoke = true;
                 
+                // if(dialogues[relationLevel].isTrigger)
+                // {
+                //     LevelManager.EncounterTrigger?.Invoke();
+                // }
+
                 if(dialogues[relationLevel].increaseRelationLevel)
                 {
                     relationLevel++;
@@ -31,7 +37,7 @@ public class NPC : MonoBehaviour
             else
             {
                 DialogueManager.instance.StartDialogue(npcName, dialogues[relationLevel].posInteractionSentences,
-                dialogues[relationLevel].dialogueSprite);
+                dialogues[relationLevel].dialogueSprite, dialogues[relationLevel].isTrigger);
             }
         }
     }
@@ -42,6 +48,7 @@ public class NPC : MonoBehaviour
         public bool hasBeenSpoke;
         public Sprite dialogueSprite;
         public bool increaseRelationLevel;
+        public bool isTrigger;
         [TextArea(3, 10)] public string[] interactionSentences;
         [TextArea(3, 10)] public string[] posInteractionSentences;
     }

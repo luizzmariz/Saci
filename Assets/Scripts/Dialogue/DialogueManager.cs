@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour {
 	public static event Action<bool> DialogueWindowChanged;
 	public bool isHappening;
 	public bool inTransition;
+	bool eventTrigger;
 
 	[Header("Speaker Info")]
 	public TMP_Text nameText;
@@ -45,7 +46,7 @@ public class DialogueManager : MonoBehaviour {
 		sentences = new Queue<string>();
 	}
 
-	public void StartDialogue(string speakerName, string[] dialogue, Sprite speakerSprite)
+	public void StartDialogue(string speakerName, string[] dialogue, Sprite speakerSprite, bool isTrigger)
 	{	
 		DialogueWindowChanged?.Invoke(true);
 		inTransition = true;
@@ -57,6 +58,8 @@ public class DialogueManager : MonoBehaviour {
         dialogueImage.sprite = speakerSprite;
 
 		dialogueText.text = "";
+
+		eventTrigger = isTrigger;
 
 		sentences.Clear();
 
@@ -119,6 +122,12 @@ public class DialogueManager : MonoBehaviour {
 
 	void EndDialogue()
 	{
+        if (eventTrigger)
+        {
+            LevelManager.instance.InvokeEncounterEvent();
+            eventTrigger = false;
+        }
+
 		DialogueWindowChanged?.Invoke(false);
 		inTransition = true;
 

@@ -3,6 +3,16 @@ using UnityEngine;
 public class NPCInteractable : Interactable
 {
     [SerializeField] NPC NPCProfile;
+    public string npcName;
+
+    void Awake()
+    {
+        if(promptMessage == "" || promptMessage == null)
+        {
+            promptMessage = "interact with ";
+        }
+    }
+
     protected override void Interact()
     {
         NPCProfile.StartTalk();
@@ -10,6 +20,6 @@ public class NPCInteractable : Interactable
 
     public override string GetPromptMessage()
     {
-        return "interact with " + promptMessage;
+        return promptMessage + npcName;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,11 @@ using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager instance = null;
+
     [Header("Level Events")]
     [SerializeField] private List<LevelEvent> levelEvents;
+    public static event Action EncounterTrigger;
     int currentLevelEventIndex = 0;
     [SerializeField] float timeBetweenEventsInSeconds;
 
@@ -33,13 +37,25 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
+        if(instance == null) 
+        {
+			instance = this;
+		} 
+        else if(instance != this) 
+        {
+			Destroy(gameObject);
+		}
+
         GetComponents();
     }
 
     private void OnEnable()
     {
-        testStart.Enable();
-        testStart.performed += context => StartLevel();
+        if(GameManager.instance == null)
+        {
+            testStart.Enable();
+            testStart.performed += context => StartLevel();
+        }
     }
 
     private void OnDisable()
@@ -76,11 +92,6 @@ public class LevelManager : MonoBehaviour
     {
         grid.StartGrid();
     }
-
-    // void Start()
-    // {
-    //     LoadAllLevelEvents();
-    // }
 
     void LoadAllLevelEvents()
     {
@@ -143,7 +154,7 @@ public class LevelManager : MonoBehaviour
 
         if(currentLevelEventIndex >= levelEvents.Count)
         {
-            EndGame();
+            EndLevel();
         }
         else
         {
@@ -169,6 +180,11 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void InvokeEncounterEvent()
+    {
+        EncounterTrigger?.Invoke();
+    }
+
     void RegenPlayerHealth()
     {
         playerDamageable.Heal(8);
@@ -179,11 +195,11 @@ public class LevelManager : MonoBehaviour
         canvaManager.SetFullScreenMessage(messageContent, duration);
     }
 
-    void EndGame()
+    void EndLevel()
     {
         if(GameManager.instance != null)
         {
-            StartCoroutine(GameManager.instance.EndGame(true));
+            GameManager.instance.EndLevel();
         }
         else
         {

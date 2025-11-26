@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System.Linq;
@@ -13,15 +12,19 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     
     [Header("Game")]
+    bool sanjouinIsOpening = true;
     bool isInGame;
+    bool goingToMenu;
     [HideInInspector] public LevelManager levelManager;
     public GameObject screenMessage;
     public int messageDuration;
-
+    int level = 1;
+    
     [Header("Player")]
     PlayerInput playerInput;
 
     [Header("Menu")]
+    bool buttonAteFunctioning;
     bool optionsMenuIsOpen;
     public GameObject optionsMenu;
     [SerializeField] InputAction openMenu;
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour
     List<AsyncOperation> scenesToLoad = new List<AsyncOperation>(); 
     public GameObject loadScene;
     bool LoadingScene;
+    [SerializeField] Animator sceneTransitionAnimator;
+    bool loadingSceneTransition;
 
     void Awake()
     {
@@ -56,6 +61,29 @@ public class GameManager : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(mainMenuSelectedFirst);
         }
+    }
+
+    void Start()
+    {
+        if(sanjouinIsOpening)
+        {
+            StartCoroutine(OpenGame());
+            sanjouinIsOpening = false;
+        }
+    }
+
+    IEnumerator OpenGame()
+    {
+        loadingSceneTransition = true;
+
+        sceneTransitionAnimator.SetTrigger("transitionOpen");
+
+        while (loadingSceneTransition)
+        {
+            yield return null;
+        }
+
+        buttonAteFunctioning = true;
     }
 
     private void OnEnable()
@@ -85,43 +113,46 @@ public class GameManager : MonoBehaviour
 
             howToPlaySelectedFirst = howToPlayScreen.transform.Find("Button").gameObject;
         }
+        sceneTransitionAnimator = GameObject.Find("Canvas").transform.Find("TransitionScreen").GetComponent<Animator>();
         optionsMenu = GameObject.Find("Canvas").transform.Find("OptionsMenu").gameObject;
         optionsMenuSelectedFirst = optionsMenu.transform.GetChild(1).gameObject;
     }
 
     public void ButtonFunction(string button) {
-        switch(button) 
+        if(buttonAteFunctioning)
         {
-            case "start":
-                scenesToLoad.Add(SceneManager.LoadSceneAsync("Game"));
-                StartCoroutine(LoadingScreen());
-            break;
+            switch(button) 
+            {
+                case "start":
+                    StartCoroutine(LoadingScreen("Level1"));
+                break;
 
-            case "options":
-                OnOptions();
-            break;
+                case "options":
+                    OnOptions();
+                break;
 
-            case "howToPlay":
-                HowToPlay();
-            break;
+                case "howToPlay":
+                    HowToPlay();
+                break;
 
-            case "backToMenu":
-                scenesToLoad.Add(SceneManager.LoadSceneAsync("Menu"));
-                StartCoroutine(LoadingScreen());
-            break;
+                case "backToMenu":
+                    goingToMenu = true;
+                    StartCoroutine(LoadingScreen("Menu"));
+                break;
 
-            case "exit":
-                QuitGame();
-            break;
+                case "exit":
+                    QuitGame();
+                break;
 
-            default:
-            break;
+                default:
+                break;
+            }
         }
     }
 
     public void OnOptions(InputAction.CallbackContext callbackContext)
     {
-        if(!LoadingScene)
+        if(!LoadingScene && buttonAteFunctioning)
         {
             if(!optionsMenuIsOpen)
             {
@@ -213,7 +244,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator LoadingScreen()
+    IEnumerator LoadingScreen(string sceneName)
     {
         openMenu.Disable();
 
@@ -221,8 +252,19 @@ public class GameManager : MonoBehaviour
         {
             OnOptions();
         }
+
+        loadingSceneTransition = true;
+
         LoadingScene = true;
 
+        sceneTransitionAnimator.SetTrigger("transitionClose");
+
+        while (loadingSceneTransition)
+        {
+            yield return null;
+        }
+
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(sceneName));
         float totalProgress = 0;
 
         for(int i = 0; i < scenesToLoad.Count; i++)
@@ -238,41 +280,70 @@ public class GameManager : MonoBehaviour
         {
             isInGame = true;
             GetComponents();
-            StartCoroutine(InitializeGame());
         }
         else
         {
-            isInGame = false;
-            GetComponents();
+            if(goingToMenu)
+            {
+                goingToMenu = false;
+                isInGame = false;
+            }
+
             openMenu.Enable();
+            GetComponents();
+        }
+        
+        loadingSceneTransition = true;
+
+        sceneTransitionAnimator.SetTrigger("transitionOpen");
+
+        while (loadingSceneTransition)
+        {
+            yield return null;
         }
 
         yield return new WaitForSeconds(0.01f);
 
-
         LoadingScene = false;
+
+        if(isInGame)
+        {
+            StartCoroutine(InitializeGame());
+        }
+    }
+
+    public void TransitionScreenAnimationFinished()
+    {
+        loadingSceneTransition = false;
     }
 
     IEnumerator InitializeGame()
     {
         playerInput.actions.FindActionMap("Player").Disable();
-        screenMessage.GetComponentInChildren<TMP_Text>().text = "GAME STARTING IN 3";
-        screenMessage.SetActive(true);
-        screenMessage.GetComponent<Animator>().SetBool("messageOn", true);
-        int i = 3; 
-        while(i > 0)
-        {
-            screenMessage.GetComponentInChildren<TMP_Text>().text = "GAME STARTING IN " + i;
-            yield return new WaitForSeconds(0.75f);
-            i--;
-        }
+        // screenMessage.GetComponentInChildren<TMP_Text>().text = "GAME STARTING IN 3";
+        // screenMessage.SetActive(true);
+        // screenMessage.GetComponent<Animator>().SetBool("messageOn", true);
+        // int i = 3; 
+        // while(i > 0)
+        // {
+        //     screenMessage.GetComponentInChildren<TMP_Text>().text = "GAME STARTING IN " + i;
+        //     yield return new WaitForSeconds(0.75f);
+        //     i--;
+        // }
         playerInput.actions.FindActionMap("Player").Enable();
         openMenu.Enable();
-        screenMessage.GetComponent<Animator>().SetBool("messageOn", false);
+        // screenMessage.GetComponent<Animator>().SetBool("messageOn", false);
         yield return new WaitForSeconds(0.1f);
-        screenMessage.SetActive(false);
+        // screenMessage.SetActive(false);
         
         levelManager.StartLevel();
+    }
+
+    public void EndLevel()
+    {
+        level++;
+
+        StartCoroutine(LoadingScreen("Level" + level));
     }
 
     public IEnumerator EndGame(bool win)
@@ -295,8 +366,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         screenMessage.SetActive(false);
 
-        scenesToLoad.Add(SceneManager.LoadSceneAsync("Menu"));
-        StartCoroutine(LoadingScreen());
+        level = 1;
+        goingToMenu = true;
+        StartCoroutine(LoadingScreen("Menu"));
     }
 
     public void QuitGame() {
