@@ -127,7 +127,7 @@ public class LevelManager : MonoBehaviour
             break;
 
             case LevelEvent.levelEventType.ENCOUNTER:
-                yield return new WaitForSeconds(timeBetweenEventsInSeconds);
+                // yield return new WaitForSeconds(timeBetweenEventsInSeconds);
 
                 encounterManager.SetEncounter((Encounter)currentlevelEvent);
             break;
