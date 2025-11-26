@@ -166,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1863a7c1fa7dc8341b57e6f9f69ab587, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80b25145ea44bfd4ca41d05cee563d60, type: 3}
   m_Color: {r: 0, g: 1, b: 0.101960786, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -191,9 +191,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSpriteRenderer: {fileID: 6550327431606271395}
   handsSpriteRenderer: {fileID: 3446125461662722880}
-  characterDown: {fileID: 21300000, guid: 1863a7c1fa7dc8341b57e6f9f69ab587, type: 3}
-  characterUp: {fileID: 21300000, guid: c54eef54cb12a1f49bfc40e18087f979, type: 3}
-  characterSide: {fileID: 21300000, guid: 182d832548965444097230186ac5e2c9, type: 3}
+  characterDown: {fileID: 21300000, guid: 80b25145ea44bfd4ca41d05cee563d60, type: 3}
+  characterUp: {fileID: 21300000, guid: 9b4c6cf0e2373484ca10cc32be71d32d, type: 3}
+  characterSide: {fileID: 21300000, guid: 138b83803342de946970ab41ae05a142, type: 3}
 --- !u!1 &4254352892841550540
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3f929413802d4ad40b52e7fa94fd1fff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a00b24d7a72fa4458d042142b59e91d, type: 3}
   m_Color: {r: 0, g: 1, b: 0.101960786, a: 1}
   m_FlipX: 0
   m_FlipY: 0

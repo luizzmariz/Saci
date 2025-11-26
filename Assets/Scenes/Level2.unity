@@ -6479,6 +6479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelEvents:
   - {fileID: 11400000, guid: 7a600d32a3b82814eac1a69a560e9e3f, type: 2}
+  - {fileID: 11400000, guid: edb48adc71d5ce640b42d45fc7651f64, type: 2}
   timeBetweenEventsInSeconds: 1.75
   bossFightManager: {fileID: 0}
   grid: {fileID: 8321289529487477818}
@@ -24789,6 +24790,8 @@ MonoBehaviour:
     m_Bits: 1024
   gridWorldSize: {x: 30, y: 25}
   nodeRadius: 0.25
+  gridSizeX: 0
+  gridSizeY: 0
 --- !u!222 &8376037831822014075
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Sanjouin</title>
+    <title>Unity Web Player | Sanjouin</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="manifest" href="manifest.webmanifest">
@@ -59,6 +59,7 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Build(Web).loader.js";
       var config = {
+        arguments: [],
         dataUrl: buildUrl + "/Build(Web).data.gz",
         frameworkUrl: buildUrl + "/Build(Web).framework.js.gz",
         codeUrl: buildUrl + "/Build(Web).wasm.gz",
@@ -83,6 +84,7 @@
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
+
 
       loadingBar.style.display = "block";
 

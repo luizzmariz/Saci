@@ -17628,6 +17628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1176009620}
   - component: {fileID: 1176009622}
+  - component: {fileID: 1176009623}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -17706,6 +17707,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1176009623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176009619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbb1a4cb1e38244c94a53779926265d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1184638025
 GameObject:
   m_ObjectHideFlags: 0
@@ -23735,6 +23748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1649164743}
   - component: {fileID: 1649164744}
+  - component: {fileID: 1649164745}
   m_Layer: 0
   m_Name: HandsVisual
   m_TagString: Untagged
@@ -23812,6 +23826,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1649164745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649164742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbb1a4cb1e38244c94a53779926265d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1652685444
 GameObject:
   m_ObjectHideFlags: 0
@@ -32547,6 +32573,8 @@ MonoBehaviour:
     m_Bits: 1024
   gridWorldSize: {x: 40, y: 50}
   nodeRadius: 0.25
+  gridSizeX: 0
+  gridSizeY: 0
 --- !u!222 &8376037831822014075
 CanvasRenderer:
   m_ObjectHideFlags: 0

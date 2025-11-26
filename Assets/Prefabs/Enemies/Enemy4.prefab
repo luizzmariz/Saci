@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3f929413802d4ad40b52e7fa94fd1fff, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0.4745098, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1.0714285}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!1 &529111339939702705
@@ -407,7 +407,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1863a7c1fa7dc8341b57e6f9f69ab587, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 607e5ea75e7e42d4f876f2af9b2ea905, type: 3}
   m_Color: {r: 0.4745098, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -432,9 +432,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSpriteRenderer: {fileID: 8925758500272325174}
   handsSpriteRenderer: {fileID: 1403599457126142946}
-  characterDown: {fileID: 21300000, guid: 1863a7c1fa7dc8341b57e6f9f69ab587, type: 3}
-  characterUp: {fileID: 21300000, guid: c54eef54cb12a1f49bfc40e18087f979, type: 3}
-  characterSide: {fileID: 21300000, guid: 182d832548965444097230186ac5e2c9, type: 3}
+  characterDown: {fileID: 21300000, guid: 607e5ea75e7e42d4f876f2af9b2ea905, type: 3}
+  characterUp: {fileID: 21300000, guid: db82932cdab4dc94f940797feec55fd8, type: 3}
+  characterSide: {fileID: 21300000, guid: cbe82733f09213243b5f73d980bd72a6, type: 3}
 --- !u!1 &8743138273899124833
 GameObject:
   m_ObjectHideFlags: 0
