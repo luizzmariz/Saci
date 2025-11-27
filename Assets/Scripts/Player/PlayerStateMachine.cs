@@ -167,7 +167,7 @@ public class PlayerStateMachine : StateMachine
     {
         if(context.performed)
         {
-            if(!uncontrollable && canMove && !isAiming && !isDashing)
+            if(!uncontrollable && canMove && !isAiming && !isDashing && !isInteracting)
             {
                 ChangeState(moveState);
             }
@@ -184,7 +184,7 @@ public class PlayerStateMachine : StateMachine
 
     public void ChangeToAttackState()
     {
-        if(!uncontrollable && CanUseAbility)
+        if(!uncontrollable && CanUseAbility && !isInteracting)
         {
             ChangeState(attackState);
         }
@@ -192,7 +192,7 @@ public class PlayerStateMachine : StateMachine
 
     public void ChangeToFireState()
     {
-        if(!uncontrollable && CanUseAbility)
+        if(!uncontrollable && CanUseAbility && !isInteracting)
         {
             ChangeState(fireState);
         }
@@ -200,7 +200,7 @@ public class PlayerStateMachine : StateMachine
 
     public void ChangeToDashState()
     {
-        if(!uncontrollable && CanUseAbility)
+        if(!uncontrollable && CanUseAbility && !isInteracting)
         {
             ChangeState(dashState);
         }
